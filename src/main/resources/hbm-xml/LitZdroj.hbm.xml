@@ -1,0 +1,94 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 30, 2012 11:34:04 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="sk.sav.bot.dataflos.entity.LitZdroj" table="lit_zdroj" schema="public">
+        <comment>deferred:kod,typ,nazov_clanku_preklad,pramen,id_casopis,rocnik,cislo,vydavatel,strany,poznamka,pocet_zaznamov,komplet,fotka,mapa_rozsirenia,referencia</comment>
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="casopis" class="sk.sav.bot.dataflos.entity.Casopisy" fetch="select">
+            <column name="id_casopis" />
+        </many-to-one>
+        <property name="kod" type="string">
+            <column name="kod" length="10" />
+        </property>
+        <property name="typ" type="java.lang.Character">
+            <column name="typ" length="1" />
+        </property>
+        <property name="nazovClanku" type="string">
+            <column name="nazov_clanku" length="200" />
+        </property>
+        <property name="nazovClankuPreklad" type="string">
+            <column name="nazov_clanku_preklad" length="200" />
+        </property>
+        <property name="pramen" type="string">
+            <column name="pramen" length="200" />
+        </property>
+        <property name="rocnik" type="string">
+            <column name="rocnik" length="20" />
+        </property>
+        <property name="cislo" type="string">
+            <column name="cislo" length="20" />
+        </property>
+        <property name="vydavatel" type="string">
+            <column name="vydavatel" length="100" />
+        </property>
+        <property name="rok" type="string">
+            <column name="rok" length="15" />
+        </property>
+        <property name="strany" type="string">
+            <column name="strany" length="50" />
+        </property>
+        <property name="poznamka" type="string">
+            <column name="poznamka" length="500" />
+        </property>
+        <property name="pocetZaznamov" type="string">
+            <column name="pocet_zaznamov" length="20" />
+        </property>
+        <property name="komplet" type="boolean">
+            <column name="komplet" not-null="true" />
+        </property>
+        <property name="fotka" type="boolean">
+            <column name="fotka" not-null="true" />
+        </property>
+        <property name="nazovKnihy" type="string">
+            <column name="nazov_knihy" length="500" />
+        </property>
+        <property name="mapaRozsirenia" type="boolean">
+            <column name="mapa_rozsirenia" not-null="true" />
+        </property>
+        <property name="nazovKapitoly" type="string">
+            <column name="nazov_kapitoly" length="500" />
+        </property>
+        <property name="referencia" type="string">
+            <column name="referencia" length="500" />
+        </property>
+        <set name="udajs" inverse="true">
+            <key>
+                <column name="id_lit" />
+            </key>
+            <one-to-many class="sk.sav.bot.dataflos.entity.Udaj" />
+        </set>
+        <set name="litZdrojRevs" inverse="true">
+            <key>
+                <column name="id_lit_zdroj" />
+            </key>
+            <one-to-many class="sk.sav.bot.dataflos.entity.LitZdrojRev" />
+        </set>
+        <set name="lzdrojAutoriAsocs" inverse="true" order-by="poradie" cascade="delete-orphan">
+            <key>
+                <column name="id_lit_zdroj" />
+            </key>
+            <one-to-many class="sk.sav.bot.dataflos.entity.LzdrojAutoriAsoc" />
+        </set>
+        <set name="lzdrojEditoriAsocs" inverse="true" order-by="poradie" cascade="delete-orphan">
+            <key>
+                <column name="id_lit_zdroj" />
+            </key>
+            <one-to-many class="sk.sav.bot.dataflos.entity.LzdrojEditoriAsoc" />
+        </set>
+    </class>
+</hibernate-mapping>

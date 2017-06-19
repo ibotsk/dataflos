@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 30, 2012 11:34:04 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="sk.sav.bot.dataflos.entity.Ftgobvod" table="ftgobvod" schema="public">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="ftgoblast" class="sk.sav.bot.dataflos.entity.Ftgoblast" fetch="select">
+            <column name="id_oblast" />
+        </many-to-one>
+        <property name="obvod" type="string">
+            <column name="obvod" length="2" />
+        </property>
+        <property name="meno" type="string">
+            <column name="meno" length="100" />
+        </property>
+        <property name="schvalene" type="boolean">
+            <column name="schvalene" />
+        </property>
+        <set name="ftgokreses" inverse="true">
+            <key>
+                <column name="id_obvod" />
+            </key>
+            <one-to-many class="sk.sav.bot.dataflos.entity.Ftgokres" />
+        </set>
+    </class>
+</hibernate-mapping>

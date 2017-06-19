@@ -1,0 +1,101 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 30, 2012 11:34:04 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="sk.sav.bot.dataflos.entity.Lokality" table="lokality" schema="public">
+        <comment>
+        deferred:id_brumit3,id_brumit4,id_vac,id_nac,id_vgc,id_ngc,id_ftgokres,typss,latitude,longitude,id_obec,id_flora,id_chu,alt_od_cca,alt_od,alt_do,expo,opis_lokality,poznamka_lok,poda,substrat,hostitel,vyska_zberu,kopia_schedy,kod</comment>
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="brumit3" class="sk.sav.bot.dataflos.entity.Brumit3" fetch="select">
+            <column name="id_brumit3" />
+        </many-to-one>
+        <many-to-one name="ngc" class="sk.sav.bot.dataflos.entity.Ngc" fetch="select">
+            <column name="id_ngc" />
+        </many-to-one>
+        <many-to-one name="nac" class="sk.sav.bot.dataflos.entity.Nac" fetch="select">
+            <column name="id_nac" />
+        </many-to-one>
+        <many-to-one name="flora" class="sk.sav.bot.dataflos.entity.Flora" fetch="select">
+            <column name="id_flora" />
+        </many-to-one>
+        <many-to-one name="brumit4" class="sk.sav.bot.dataflos.entity.Brumit4" fetch="select">
+            <column name="id_brumit4" />
+        </many-to-one>
+        <many-to-one name="vgc" class="sk.sav.bot.dataflos.entity.Vgc" fetch="select">
+            <column name="id_vgc" />
+        </many-to-one>
+        <many-to-one name="vac" class="sk.sav.bot.dataflos.entity.Vac" fetch="select">
+            <column name="id_vac" />
+        </many-to-one>
+        <many-to-one name="chu" class="sk.sav.bot.dataflos.entity.Chu" fetch="select">
+            <column name="id_chu" />
+        </many-to-one>
+        <many-to-one name="obec" class="sk.sav.bot.dataflos.entity.Obec" fetch="select">
+            <column name="id_obec" />
+        </many-to-one>
+        <property name="typss" type="string">
+            <column name="typss" length="10" />
+        </property>
+        <property name="latitude" type="java.lang.Double">
+            <column name="latitude" precision="17" scale="17" />
+        </property>
+        <property name="longitude" type="java.lang.Double">
+            <column name="longitude" precision="17" scale="17" />
+        </property>
+        <property name="altOdCca" type="boolean">
+            <column name="alt_od_cca" not-null="true" />
+        </property>
+        <property name="altOd" type="java.lang.Integer">
+            <column name="alt_od" />
+        </property>
+        <property name="altDo" type="java.lang.Integer">
+            <column name="alt_do" />
+        </property>
+        <property name="opisLokality" type="string">
+            <column name="opis_lokality" length="500" />
+        </property>
+        <property name="poznamkaLok" type="string">
+            <column name="poznamka_lok" length="500" />
+        </property>
+        <property name="poda" type="string">
+            <column name="poda" length="20" />
+        </property>
+        <property name="substrat" type="string">
+            <column name="substrat" length="20" />
+        </property>
+        <property name="hostitel" type="string">
+            <column name="hostitel" length="50" />
+        </property>
+        <property name="vyskaZberu" type="java.lang.Integer">
+            <column name="vyska_zberu" />
+        </property>
+        <property name="kopiaSchedy" type="string">
+            <column name="kopia_schedy" length="500" />
+        </property>
+        <property name="kod" type="string">
+            <column name="kod" length="10" />
+        </property>
+        <set name="udajs" inverse="true">
+            <key>
+                <column name="id_lok" />
+            </key>
+            <one-to-many class="sk.sav.bot.dataflos.entity.Udaj" />
+        </set>
+        <set name="lokalityKvadrantAsocs" inverse="true" order-by="id" cascade="delete-orphan">
+            <key>
+                <column name="id_lokality" not-null="true" />
+            </key>
+            <one-to-many class="sk.sav.bot.dataflos.entity.LokalityKvadrantAsoc" />
+        </set>
+        <set name="lokalityFtgokresAsocs" inverse="true" order-by="id" cascade="delete-orphan">
+            <key>
+                <column name="id_lokality" not-null="true" />
+            </key>
+            <one-to-many class="sk.sav.bot.dataflos.entity.LokalityFtgokresAsoc" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+  <class name="sk.sav.bot.dataflos.entity.LzdrojAutoriAsoc" table="lzdroj_autori_asoc" schema="public">
+        <composite-id name="id" class="sk.sav.bot.dataflos.entity.LzdrojAutoriAsocId">
+            <key-property name="idLitZdroj" type="int">
+                <column name="id_lit_zdroj" />
+            </key-property>
+            <key-property name="idMenoAutora" type="int">
+                <column name="id_meno_autora" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="litZdroj" class="sk.sav.bot.dataflos.entity.LitZdroj" update="false" insert="false" fetch="select">
+            <column name="id_lit_zdroj" not-null="true" />
+        </many-to-one>
+        <many-to-one name="menoAutora" class="sk.sav.bot.dataflos.entity.MenaZberRev" update="false" insert="false" fetch="select">
+            <column name="id_meno_autora" not-null="true" />
+        </many-to-one>
+        <property name="poradie" type="java.lang.Integer">
+            <column name="poradie" />
+        </property>
+    </class>
+</hibernate-mapping>

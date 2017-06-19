@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="sk.sav.bot.dataflos.entity.Revizie" table="revizie" schema="public" >
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="uzivatelLogin" type="string">
+            <column name="uzivatel" length="50" not-null="true" />
+        </property>
+        <property name="tabulka" type="string">
+            <column name="tabulka" length="50" />
+        </property>
+        <property name="datetime" type="timestamp">
+            <column name="datetime" />
+        </property>
+        <property name="idRec" type="int">
+            <column name="id_rec" />
+        </property>
+        <property name="op" type="string">
+            <column name="op" length="10" />
+        </property>
+        <!--<many-to-one name="uzivatel" class="sk.sav.bot.dataflos.entity.Uzivatelia" fetch="select">
+            <column name="id_uzivatel" not-null="true" />
+        </many-to-one>-->
+    </class>
+</hibernate-mapping>

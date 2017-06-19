@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 30, 2012 11:34:04 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="sk.sav.bot.dataflos.entity.Brumit4" table="brumit4" schema="public">
+        <comment>order-by:meno deferred:id_str,id_parent,iso</comment>
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="brumit3" class="sk.sav.bot.dataflos.entity.Brumit3" fetch="select">
+            <column name="id_parentid" />
+        </many-to-one>
+        <property name="idStr" type="string">
+            <column name="id_str" length="6" not-null="true" unique="true" />
+        </property>
+        <property name="meno" type="string">
+            <column name="meno" length="150" not-null="true">
+                <comment>Meno brumit4</comment>
+            </column>
+        </property>
+        <property name="iso" type="string">
+            <column name="iso" length="50" />
+        </property>
+        <set name="lokalities" inverse="true">
+            <key>
+                <column name="id_brumit4" />
+            </key>
+            <one-to-many class="sk.sav.bot.dataflos.entity.Lokality" />
+        </set>
+    </class>
+</hibernate-mapping>

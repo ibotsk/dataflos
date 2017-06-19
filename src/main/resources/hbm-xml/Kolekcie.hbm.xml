@@ -1,0 +1,75 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 30, 2012 11:34:04 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="sk.sav.bot.dataflos.entity.Kolekcie" table="kolekcie" schema="public">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="idZbierky" type="java.lang.Integer">
+            <column name="id_zbierky" />
+        </property>
+        <property name="prirastkoveCislo" type="string">
+            <column name="prirastkove_cislo" length="20">
+                <comment>Pr&#237;rastkov&#233; &#232;&#237;slo</comment>
+            </column>
+        </property>
+        <property name="evidencneCislo" type="java.lang.Integer">
+            <column name="evidencne_cislo">
+                <comment>Eviden&#232;n&#233; &#232;&#237;slo</comment>
+            </column>
+        </property>
+        <property name="nazovZbierkovehoPredmetu" type="string">
+            <column name="nazov_zbierkoveho_predmetu" length="100">
+                <comment>N&#225;zov zbierkov&#233;ho predmetu</comment>
+            </column>
+        </property>
+        <property name="miestoNalezu" type="string">
+            <column name="miesto_nalezu" length="100">
+                <comment>Miesto n&#225;lezu</comment>
+            </column>
+        </property>
+        <property name="pocetKusov" type="java.lang.Integer">
+            <column name="pocet_kusov">
+                <comment>Po&#232;et kusov</comment>
+            </column>
+        </property>
+        <property name="datumNadobudnutia" type="string">
+            <column name="datum_nadobudnutia" length="8">
+                <comment>D&#225;tum nadobudnutia</comment>
+            </column>
+        </property>
+        <property name="idSposobNadobudnutia" type="java.lang.Integer">
+            <column name="id_sposob_nadobudnutia" />
+        </property>
+        <property name="predchadzajuciVlastnik" type="string">
+            <column name="predchadzajuci_vlastnik" length="50" />
+        </property>
+        <property name="cena" type="string">
+            <column name="cena" length="20" />
+        </property>
+        <property name="nadobudajucaHodnota" type="string">
+            <column name="nadobudajuca_hodnota" length="20" />
+        </property>
+        <property name="idDokladONadobudnuti" type="java.lang.Integer">
+            <column name="id_doklad_o_nadobudnuti" />
+        </property>
+        <property name="predmetPrevzal" type="string">
+            <column name="predmet_prevzal" length="50" />
+        </property>
+        <property name="opis" type="string">
+            <column name="opis" length="500" />
+        </property>
+        <property name="poznamka" type="string">
+            <column name="poznamka" length="500" />
+        </property>
+        <set name="herbarPolozkies" inverse="true">
+            <key>
+                <column name="id_kolekcie" />
+            </key>
+            <one-to-many class="sk.sav.bot.dataflos.entity.HerbarPolozky" />
+        </set>
+    </class>
+</hibernate-mapping>

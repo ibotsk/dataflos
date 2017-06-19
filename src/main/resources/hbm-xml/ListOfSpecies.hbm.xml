@@ -1,0 +1,71 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 30, 2012 11:34:04 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="sk.sav.bot.dataflos.entity.ListOfSpecies" table="list_of_species" schema="public">
+        <comment>deferred:autori,id_family,id_genus</comment>
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="genus" class="sk.sav.bot.dataflos.entity.Genus" fetch="select">
+            <column name="id_genus">
+                <comment>Genus</comment>
+            </column>
+        </many-to-one>
+        <many-to-one name="listOfSpecies" class="sk.sav.bot.dataflos.entity.ListOfSpecies" fetch="select">
+            <column name="id_akcept_meno">
+                <comment>Akceptovan&#233; meno</comment>
+            </column>
+        </many-to-one>
+        <property name="typ" type="java.lang.Character">
+            <column name="typ" length="1" />
+        </property>
+        <property name="meno" type="string">
+            <column name="meno" length="100">
+                <comment>Meno</comment>
+            </column>
+        </property>
+        <property name="autori" type="string">
+            <column name="autori" length="100">
+                <comment>Autori</comment>
+            </column>
+        </property>
+        <many-to-one name="taxonPochybnost" class="sk.sav.bot.dataflos.entity.TaxonPochybnost" fetch="select">
+            <column name="id_pochybnost" />
+        </many-to-one>
+        <many-to-one name="taxonOhrozenost" class="sk.sav.bot.dataflos.entity.TaxonOhrozenost" fetch="select">
+            <column name="id_ohrozenost" />
+        </many-to-one>
+        <many-to-one name="taxonEndemizmus" class="sk.sav.bot.dataflos.entity.TaxonEndemizmus" fetch="select">
+            <column name="id_endemizmus" />
+        </many-to-one>
+        <many-to-one name="taxonPovodnost" class="sk.sav.bot.dataflos.entity.TaxonPovodnost" fetch="select">
+            <column name="id_povodnost" />
+        </many-to-one>
+        <property name="taxonSvkNazov" type="string">
+            <column name="svk_nazov" length="100"/>
+        </property>
+        <property name="taxonOchrana" type="boolean">
+            <column name="zakon_ochrana" not-null="true" />
+        </property>
+        <property name="schvalene" type="boolean">
+            <column name="schvalene" not-null="true" />
+        </property>
+        <set name="listOfSpecieses" inverse="true">
+            <key>
+                <column name="id_akcept_meno">
+                    <comment>Akceptovan&#233; meno</comment>
+                </column>
+            </key>
+            <one-to-many class="sk.sav.bot.dataflos.entity.ListOfSpecies" />
+        </set>
+        <set name="menaTaxonovs" inverse="true">
+            <key>
+                <column name="id_std_meno" />
+            </key>
+            <one-to-many class="sk.sav.bot.dataflos.entity.MenaTaxonov" />
+        </set>
+    </class>
+</hibernate-mapping>

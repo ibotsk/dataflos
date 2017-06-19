@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 30, 2012 11:34:04 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="sk.sav.bot.dataflos.entity.Brumit2" table="brumit2" schema="public">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="brumit1" class="sk.sav.bot.dataflos.entity.Brumit1" fetch="select">
+            <column name="id_parent" not-null="true" />
+        </many-to-one>
+        <property name="meno" type="string">
+            <column name="meno" length="50" not-null="true">
+                <comment>Meno brumit2</comment>
+            </column>
+        </property>
+        <property name="iso" type="string">
+            <column name="iso" length="50" />
+        </property>
+        <set name="brumit3s" inverse="true">
+            <key>
+                <column name="id_parent" not-null="true" />
+            </key>
+            <one-to-many class="sk.sav.bot.dataflos.entity.Brumit3" />
+        </set>
+    </class>
+</hibernate-mapping>

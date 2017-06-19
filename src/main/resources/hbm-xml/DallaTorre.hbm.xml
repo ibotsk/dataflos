@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 30, 2012 11:34:04 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+  <class name="sk.sav.bot.dataflos.entity.DallaTorre" schema="public" table="dalla_torre">
+    <comment>order-by:nazov_druhu deferred:id_evid,id_genus</comment>
+    <id name="id" type="int">
+      <column name="id"/>
+      <generator class="identity"/>
+    </id>
+    <many-to-one class="sk.sav.bot.dataflos.entity.Genus" fetch="select" name="genus">
+      <column name="id_genus"/>
+    </many-to-one>
+    <property name="idEvid" type="java.lang.Integer">
+      <column name="id_evid"/>
+    </property>
+    <property name="nazovRodu" type="string">
+      <column length="50" name="nazov_rodu">
+        <comment>Názov druhu</comment>
+      </column>
+    </property>
+    <property name="autor" type="string">
+      <column length="50" name="autor">
+        <comment>Autor</comment>
+      </column>
+    </property>
+    <property name="schvalene" type="boolean">
+      <column name="schvalene"/>
+    </property>
+    <set inverse="true" name="herbarPolozkies">
+      <key>
+        <column name="id_dalla_torre"/>
+      </key>
+      <one-to-many class="sk.sav.bot.dataflos.entity.HerbarPolozky"/>
+    </set>
+  </class>
+</hibernate-mapping>

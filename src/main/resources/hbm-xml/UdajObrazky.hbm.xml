@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 30, 2012 11:34:04 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="sk.sav.bot.dataflos.entity.UdajObrazky" table="udaj_obrazky" schema="public">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="udaj" class="sk.sav.bot.dataflos.entity.Udaj" fetch="select">
+            <column name="id_udaj" not-null="true" />
+        </many-to-one>
+        <property name="popis" type="string">
+            <column name="popis" />
+        </property>
+        <property name="obrazok" type="binary">
+            <column name="obrazok" />
+        </property>
+        <property name="url" type="string">
+            <column name="url" length="100" />
+        </property>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 30, 2012 11:34:04 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="sk.sav.bot.dataflos.entity.Genus" table="genus" schema="public">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="familyApg" class="sk.sav.bot.dataflos.entity.FamilyApg" fetch="select">
+            <column name="id_family_apg" />
+        </many-to-one>
+        <many-to-one name="family" class="sk.sav.bot.dataflos.entity.Family" fetch="select">
+            <column name="id_family" />
+        </many-to-one>
+        <property name="meno" type="string">
+            <column name="meno" length="100">
+                <comment>Meno</comment>
+            </column>
+        </property>
+        <property name="autor" type="string">
+            <column name="autor" length="128">
+                <comment>Autor</comment>
+            </column>
+        </property>
+        <property name="schvalene" type="boolean">
+            <column name="schvalene" />
+        </property>
+        <set name="listOfSpecieses" inverse="true">
+            <key>
+                <column name="id_genus">
+                    <comment>Genus</comment>
+                </column>
+            </key>
+            <one-to-many class="sk.sav.bot.dataflos.entity.ListOfSpecies" />
+        </set>
+        <set name="dallaTorres" inverse="true">
+            <key>
+                <column name="id_genus" />
+            </key>
+            <one-to-many class="sk.sav.bot.dataflos.entity.DallaTorre" />
+        </set>
+    </class>
+</hibernate-mapping>

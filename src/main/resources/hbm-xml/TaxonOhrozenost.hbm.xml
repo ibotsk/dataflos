@@ -1,0 +1,23 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="sk.sav.bot.dataflos.entity.TaxonOhrozenost" table="taxon_ohrozenost" schema="public">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="skratka" type="string">
+            <column name="skratka" length="10" unique="true"/>
+        </property>
+        <property name="popis" type="string">
+            <column name="popis" length="100"/>
+        </property>
+        <set name="listOfSpecies" inverse="true">
+            <key>
+                <column name="id_ohrozenost" />
+            </key>
+            <one-to-many class="sk.sav.bot.dataflos.entity.ListOfSpecies" />
+        </set>
+    </class>
+</hibernate-mapping>

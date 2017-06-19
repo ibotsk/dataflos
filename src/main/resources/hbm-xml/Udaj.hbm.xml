@@ -1,0 +1,67 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 30, 2012 11:34:04 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="sk.sav.bot.dataflos.entity.Udaj" table="udaj" schema="public">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="litZdroj" class="sk.sav.bot.dataflos.entity.LitZdroj" fetch="select">
+            <column name="id_lit" />
+        </many-to-one>
+        <many-to-one name="lokality" class="sk.sav.bot.dataflos.entity.Lokality" fetch="select">
+            <column name="id_lok" />
+        </many-to-one>
+        <many-to-one name="herbarPolozky" class="sk.sav.bot.dataflos.entity.HerbarPolozky" fetch="select">
+            <column name="id_herb_polozka" />
+        </many-to-one>
+        <property name="typ" type="java.lang.Character">
+            <column name="typ" length="1" />
+        </property>
+        <property name="datumZberu" type="string">
+            <column name="datum_zberu" length="8" />
+        </property>
+        <property name="stranaUdaja" type="string">
+            <column name="strana_udaja" length="15" />
+        </property>
+        <property name="datumZberuSlovom" type="string">
+            <column name="datum_zberu_slovom" length="25" />
+        </property>
+        <property name="verejnePristupny" type="boolean">
+            <column name="verejne_pristupny" not-null="true" />
+        </property>
+        <property name="verejnePristupnyOd" type="string">
+            <column name="verejne_pristupny_od" length="8" />
+        </property>
+        <property name="uzivatel" type="string">
+            <column name="uzivatel" length="50" />
+        </property>
+        <set name="skupRevs" inverse="true" order-by="id">
+            <key>
+                <column name="id_udaj" />
+            </key>
+            <one-to-many class="sk.sav.bot.dataflos.entity.SkupRev" />
+        </set>
+        <set name="udajObrazkies" inverse="true">
+            <key>
+                <column name="id_udaj" not-null="true" />
+            </key>
+            <one-to-many class="sk.sav.bot.dataflos.entity.UdajObrazky" />
+        </set>
+        <set name="udajZberAsocs" inverse="true" order-by="poradie" cascade="delete-orphan" >
+            <key>
+                <column name="id_udaj" not-null="true" />
+            </key>
+            <one-to-many class="sk.sav.bot.dataflos.entity.UdajZberAsoc" />
+        </set>
+        <set name="litZdrojRevs" inverse="true" order-by="id" >
+            <key>
+                <column name="id_udaj" not-null="true" />
+            </key>
+            <one-to-many class="sk.sav.bot.dataflos.entity.LitZdrojRev" />
+        </set>
+    </class>
+      
+</hibernate-mapping>

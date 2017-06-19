@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 30, 2012 11:34:04 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="sk.sav.bot.dataflos.entity.LokalityKvadrantAsoc" table="lokality_kvadrant_asoc" schema="public">
+        <composite-id name="id" class="sk.sav.bot.dataflos.entity.LokalityKvadrantAsocId">
+            <key-property name="idLokality" type="int">
+                <column name="id_lokality" />
+            </key-property>
+            <key-property name="idKvadrant" type="int">
+                <column name="id_kvadrant" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="lokality" class="sk.sav.bot.dataflos.entity.Lokality" update="false" insert="false" fetch="select">
+            <column name="id_lokality" not-null="true" />
+        </many-to-one>
+        <many-to-one name="kvadrant" class="sk.sav.bot.dataflos.entity.Kvadrant" update="false" insert="false" fetch="select">
+            <column name="id_kvadrant" not-null="true" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

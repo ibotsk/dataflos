@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="sk.sav.bot.dataflos.entity.Uzivatelia" table="uzivatelia" schema="public" mutable="false">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="login" type="string">
+            <column name="login" length="30" not-null="false" unique="true" />
+        </property>
+        <property name="prefixCk" type="string">
+            <column name="prefix_ck" length="20" />
+        </property>
+        <property name="ckLow" type="java.lang.Integer">
+            <column name="ck_low"/>
+        </property>
+        <property name="ckHi" type="java.lang.Integer">
+            <column name="ck_hi" />
+        </property>
+        <property name="ckCounter" type="java.lang.Integer">
+            <column name="ck_counter" />
+        </property>
+        <property name="meno" type="string">
+            <column name="meno" length="50" />
+        </property>
+        <property name="pracovisko" type="string">
+            <column name="pracovisko" length="50" />
+        </property>
+        <property name="regDate" type="timestamp">
+            <column name="reg_date" />
+        </property>
+        <property name="note" type="string">
+            <column name="note" length="500" />
+        </property>
+        <property name="lastlogin" type="java.lang.Integer">
+            <column name="last_login" length="30" not-null="false" unique="false" />
+        </property>
+        <property name="admin" type="boolean">
+            <column name="admin" not-null="true" />
+        </property>
+        <!--
+        <set name="revizie" inverse="true">
+            <key>
+                <column name="id_uzivatel" not-null="true" />
+            </key>
+            <one-to-many class="sk.sav.bot.dataflos.entity.Revizie" />
+        </set>
+        -->
+    </class>
+</hibernate-mapping>

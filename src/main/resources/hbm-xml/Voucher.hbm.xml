@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 30, 2012 11:34:04 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="sk.sav.bot.dataflos.entity.Voucher" table="voucher" schema="public">
+        <comment>deferred:kod_lokality,poznamka</comment>
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="menoAutora" type="string">
+            <column name="meno_autora" length="30">
+                <comment>Meno autora</comment>
+            </column>
+        </property>
+        <property name="rokPubl" type="java.lang.Integer">
+            <column name="rok_publ">
+                <comment>Rok publik&#225;cie</comment>
+            </column>
+        </property>
+        <property name="skrCas" type="string">
+            <column name="skr_cas" length="50">
+                <comment>Skratka &#232;asopisu</comment>
+            </column>
+        </property>
+        <property name="strany" type="string">
+            <column name="strany" length="20">
+                <comment>Strany</comment>
+            </column>
+        </property>
+        <property name="kodLokality" type="string">
+            <column name="kod_lokality" length="10">
+                <comment>K&#243;d lokality</comment>
+            </column>
+        </property>
+        <property name="poznamka" type="string">
+            <column name="poznamka" length="100">
+                <comment>Pozn&#225;mka</comment>
+            </column>
+        </property>
+        <set name="herbarPolozkies" inverse="true">
+            <key>
+                <column name="id_voucher" />
+            </key>
+            <one-to-many class="sk.sav.bot.dataflos.entity.HerbarPolozky" />
+        </set>
+    </class>
+</hibernate-mapping>

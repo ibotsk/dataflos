@@ -1,0 +1,54 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 30, 2012 11:34:04 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="sk.sav.bot.dataflos.entity.HerbarPolozky" table="herbar_polozky" schema="public">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="herbar" class="sk.sav.bot.dataflos.entity.Herbar" fetch="select">
+            <column name="id_herbar" />
+        </many-to-one>
+        <many-to-one name="dallaTorre" class="sk.sav.bot.dataflos.entity.DallaTorre" fetch="select">
+            <column name="id_dalla_torre" />
+        </many-to-one>
+        <many-to-one name="voucher" class="sk.sav.bot.dataflos.entity.Voucher" fetch="select">
+            <column name="id_voucher" />
+        </many-to-one>
+        <many-to-one name="exsikaty" class="sk.sav.bot.dataflos.entity.Exsikaty" fetch="select">
+            <column name="id_exsikat" />
+        </many-to-one>
+        <many-to-one name="kolekcie" class="sk.sav.bot.dataflos.entity.Kolekcie" fetch="select">
+            <column name="id_kolekcie" />
+        </many-to-one>
+        <property name="cisloPol" type="string">
+            <column name="cislo_pol" length="20" />
+        </property>
+        <property name="cisloCk" type="java.lang.Integer">
+            <column name="cislo_ck" />
+        </property>
+        <property name="cisloCkFull" type="string">
+            <column name="cislo_ck_full" length="20" />
+        </property>
+        <property name="cisloZberu" type="string">
+            <column name="cislo_zberu" length="50" />
+        </property>
+        <property name="kvantifikacia" type="string">
+            <column name="kvantifikacia" length="100" />
+        </property>
+        <property name="poznamka" type="string">
+            <column name="poznamka" length="200" />
+        </property>
+        <property name="typ" type="boolean">
+            <column name="typ" not-null="true" />
+        </property>
+        <set name="udajs" inverse="true">
+            <key>
+                <column name="id_herb_polozka" />
+            </key>
+            <one-to-many class="sk.sav.bot.dataflos.entity.Udaj" />
+        </set>
+    </class>
+</hibernate-mapping>

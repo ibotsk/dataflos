@@ -1,0 +1,53 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 30, 2012 11:34:04 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="sk.sav.bot.dataflos.entity.MenaZberRev" table="mena_zber_rev" schema="public">
+        <comment>order-by:uroven,meno deferred:uroven</comment>
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="meno" type="string">
+            <column name="meno" length="200" unique="true">
+                <comment>Meno</comment>
+            </column>
+        </property>
+        <property name="schvalene" type="boolean">
+            <column name="schvalene" />
+        </property>
+        <!--property name="uroven" type="int">
+            <column name="uroven" not-null="true">
+                <comment>&#218;rove&#242; mena. 0-999 &#154;pecialne, 1000 be&#158;n&#233;</comment>
+            </column>
+        </property-->
+        <property name="stdMeno" type="string">
+            <column name="std_meno" length="200" />
+        </property>
+        <set name="udajZberAsocs" inverse="true">
+            <key>
+                <column name="id_meno_zber" not-null="true" />
+            </key>
+            <one-to-many class="sk.sav.bot.dataflos.entity.UdajZberAsoc" />
+        </set>
+        <set name="skupRevDets" inverse="true">
+            <key>
+                <column name="id_meno_rev" not-null="true" />
+            </key>
+            <one-to-many class="sk.sav.bot.dataflos.entity.SkupRevDet" />
+        </set>
+        <set name="lzdrojAutoriAsocs" inverse="true">
+            <key>
+                <column name="id_meno_autora" />
+            </key>
+            <one-to-many class="sk.sav.bot.dataflos.entity.LzdrojAutoriAsoc" />
+        </set>
+        <set name="lzdrojEditoriAsocs" inverse="true">
+            <key>
+                <column name="id_meno_editora" />
+            </key>
+            <one-to-many class="sk.sav.bot.dataflos.entity.LzdrojEditoriAsoc" />
+        </set>
+    </class>
+</hibernate-mapping>

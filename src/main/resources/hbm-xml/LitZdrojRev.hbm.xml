@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN" "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="sk.sav.bot.dataflos.entity.LitZdrojRev" table="lit_zdroj_rev" schema="public">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="datum" type="string">
+            <column name="datum" length="8" />
+        </property>
+        <many-to-one name="udaj" class="sk.sav.bot.dataflos.entity.Udaj" fetch="select">
+            <column name="id_udaj" />
+        </many-to-one>
+        <many-to-one name="litZdroj" class="sk.sav.bot.dataflos.entity.LitZdroj" fetch="select">
+            <column name="id_lit_zdroj" />
+        </many-to-one>
+        <property name="datumSlovom" type="string">
+            <column name="datum_slovom" length="25" />
+        </property>
+    </class>
+</hibernate-mapping>

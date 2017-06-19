@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 30, 2012 11:34:04 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="sk.sav.bot.dataflos.entity.FamilyApg" table="family_apg" schema="public">
+        <id name="id" type="int">
+            <column name="id" />
+            <generator class="identity" />
+        </id>
+        <property name="meno" type="string">
+            <column name="meno" />
+        </property>
+        <property name="schvalene" type="boolean">
+            <column name="schvalene" not-null="true" />
+        </property>
+        <set name="genuses" inverse="true">
+            <key>
+                <column name="id_family_apg" />
+            </key>
+            <one-to-many class="sk.sav.bot.dataflos.entity.Genus" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,25 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated May 30, 2012 11:34:04 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="sk.sav.bot.dataflos.entity.SkupRevDet" table="skup_rev_det" schema="public">
+        <composite-id name="id" class="sk.sav.bot.dataflos.entity.SkupRevDetId">
+            <key-property name="idSkupRev" type="int">
+                <column name="id_skup_rev" />
+            </key-property>
+            <key-property name="idMenoRev" type="int">
+                <column name="id_meno_rev" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="skupRev" class="sk.sav.bot.dataflos.entity.SkupRev" update="false" insert="false" fetch="select">
+            <column name="id_skup_rev" not-null="true" />
+        </many-to-one>
+        <many-to-one name="menaZberRev" class="sk.sav.bot.dataflos.entity.MenaZberRev" update="false" insert="false" fetch="select">
+            <column name="id_meno_rev" not-null="true" />
+        </many-to-one>
+        <property name="poradie" type="java.lang.Integer">
+            <column name="poradie" />
+        </property>
+    </class>
+</hibernate-mapping>
