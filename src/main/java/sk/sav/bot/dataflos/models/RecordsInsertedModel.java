@@ -129,35 +129,35 @@ public class RecordsInsertedModel extends AbstractTableModel implements PagingTa
                case 4:
                    SkupRev urcenie = udaj.getUrcenie();
                    if (urcenie != null && urcenie.getMenaTaxonov() != null) {
-                       if (urcenie.getMenaTaxonov().getListOfSpecies() == null) {
+                       if (urcenie.getMenaTaxonov().getSpecies() == null) {
                            return "nzm " + urcenie.getMenaTaxonov().getMenoScheda();
                        }
-                       return urcenie.getMenaTaxonov().getListOfSpecies().getListOfSpecies() == null
-                               ? urcenie.getMenaTaxonov().getListOfSpecies().getMeno()
-                               : urcenie.getMenaTaxonov().getListOfSpecies().getListOfSpecies().getMeno();
+                       return urcenie.getMenaTaxonov().getSpecies().getAcceptedName() == null
+                               ? urcenie.getMenaTaxonov().getSpecies().getMeno()
+                               : urcenie.getMenaTaxonov().getSpecies().getAcceptedName().getMeno();
                    }
                    return "neurčené";
                case 5:
                    SortedSet<SkupRev> skupRevs = new TreeSet<>(udaj.getRevisions());
                    if (!skupRevs.isEmpty() && skupRevs.last() != null) {
-                       if (skupRevs.last().getMenaTaxonov().getListOfSpecies() != null) {
-                           return skupRevs.last().getMenaTaxonov().getListOfSpecies().getListOfSpecies() == null
-                                   ? skupRevs.last().getMenaTaxonov().getListOfSpecies().getMeno()
-                                   : skupRevs.last().getMenaTaxonov().getListOfSpecies().getListOfSpecies().getMeno();
+                       if (skupRevs.last().getMenaTaxonov().getSpecies() != null) {
+                           return skupRevs.last().getMenaTaxonov().getSpecies().getAcceptedName() == null
+                                   ? skupRevs.last().getMenaTaxonov().getSpecies().getMeno()
+                                   : skupRevs.last().getMenaTaxonov().getSpecies().getAcceptedName().getMeno();
                        }
                        return "r " + skupRevs.last().getMenaTaxonov().getMenoScheda();
                    }
                    return "";
                case 6:
                    SkupRev urc = udaj.getUrcenie();
-                   if (urc != null && urc.getMenaTaxonov() != null && urc.getMenaTaxonov().getListOfSpecies() != null) {
-                       return urc.getMenaTaxonov().getListOfSpecies().getGenus() == null ? "" : urc.getMenaTaxonov().getListOfSpecies().getGenus().getMeno();
+                   if (urc != null && urc.getMenaTaxonov() != null && urc.getMenaTaxonov().getSpecies() != null) {
+                       return urc.getMenaTaxonov().getSpecies().getGenus() == null ? "" : urc.getMenaTaxonov().getSpecies().getGenus().getMeno();
                    }
                    return "";
                case 7:
                    urc = udaj.getUrcenie();
-                   if (urc != null && urc.getMenaTaxonov() != null && urc.getMenaTaxonov().getListOfSpecies() != null && urc.getMenaTaxonov().getListOfSpecies().getGenus() != null) {
-                       return urc.getMenaTaxonov().getListOfSpecies().getGenus().getFamilyApg() == null ? "" : urc.getMenaTaxonov().getListOfSpecies().getGenus().getFamilyApg().getMeno();
+                   if (urc != null && urc.getMenaTaxonov() != null && urc.getMenaTaxonov().getSpecies() != null && urc.getMenaTaxonov().getSpecies().getGenus() != null) {
+                       return urc.getMenaTaxonov().getSpecies().getGenus().getFamilyApg() == null ? "" : urc.getMenaTaxonov().getSpecies().getGenus().getFamilyApg().getMeno();
                    }
                    return "";
                case 8:

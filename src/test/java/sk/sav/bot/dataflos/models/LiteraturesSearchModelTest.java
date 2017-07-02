@@ -10,7 +10,7 @@ import java.util.List;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import sk.sav.bot.dataflos.entity.LitZdroj;
-import sk.sav.bot.dataflos.entity.interf.Entity;
+import sk.sav.bot.dataflos.entity.interf.AssociableEntity;
 
 /**
  *
@@ -28,13 +28,13 @@ public class LiteraturesSearchModelTest {
     public void testGetSetLiteratures() {
         System.out.println("getLiteratures");
         
-        List<Entity> literatures = new ArrayList<>();
+        List<AssociableEntity> literatures = new ArrayList<>();
         LitZdroj lz = new LitZdroj();
         lz.setRocnik("12");
         literatures.add(lz);
         LiteraturesSearchModel instance = new LiteraturesSearchModel();
         instance.setLiteratures(literatures);
-        List<Entity> result = instance.getLiteratures();
+        List<AssociableEntity> result = instance.getLiteratures();
         assertEquals(literatures, result);
     }
 
@@ -107,7 +107,7 @@ public class LiteraturesSearchModelTest {
     @Test
     public void testAddRow() {
         System.out.println("addRow");
-        Entity ent = null;
+        AssociableEntity ent = null;
         LiteraturesSearchModel instance = new LiteraturesSearchModel();
         int startCount = instance.getLiteratures().size();
         instance.addRow(ent);

@@ -34,7 +34,7 @@ import sk.sav.bot.dataflos.entity.Herbar;
 import sk.sav.bot.dataflos.entity.DallaTorre;
 import sk.sav.bot.dataflos.models.RevisionsTableModel;
 import sk.sav.bot.dataflos.models.TableListModel;
-import sk.sav.bot.dataflos.entity.interf.Entity;
+import sk.sav.bot.dataflos.entity.interf.AssociableEntity;
 import sk.sav.bot.dataflos.entity.interf.PeopleAsoc;
 import sk.sav.bot.dataflos.exception.EntityException;
 import sk.sav.bot.dataflos.factory.ListAddRemoveUtils;
@@ -101,6 +101,7 @@ import org.apache.log4j.Logger;
 import org.hibernate.Session;
 import org.hibernate.exception.ConstraintViolationException;
 import org.hibernate.resource.transaction.spi.TransactionStatus;
+import sk.sav.bot.dataflos.gui.FilterJList;
 import sk.sav.bot.dataflos.gui.ImageDisplay;
 import sk.sav.bot.dataflos.gui.MoznostiCaller;
 
@@ -212,21 +213,21 @@ public class MainFrame extends javax.swing.JFrame implements PropertyChangeListe
     private void initListeners() {
         tfUrcStdMeno.getTextField().getDocument().addDocumentListener(new StdMenoDocumentListener(tfUrcStdMeno, tfUrcAccName, tfUrcPochybnost, tfUrcOhrozenost, tfUrcEndemizmus, tfUrcPovodnost, tfUrcSvkNazov, cbUrcOchrana));
         tfRevStdMeno.getTextField().getDocument().addDocumentListener(new StdMenoDocumentListener(tfRevStdMeno, tfRevAccName, tfRevPochybnost, tfRevOhrozenost, tfRevEndemizmus, tfRevPovodnost, tfRevSvkNazov, cbRevOchrana));
-        tfUrcStdMeno.getTextField().getDocument().addDocumentListener(new TextFieldMoznostiDocListener(tfUrcStdMeno.getTextField()));
-        tfRevStdMeno.getTextField().getDocument().addDocumentListener(new TextFieldMoznostiDocListener(tfRevStdMeno.getTextField()));
-        tfLocBrumFour.getTextField().getDocument().addDocumentListener(new TextFieldMoznostiDocListener(tfLocBrumFour.getTextField()));
-        tfLocFlora.getTextField().getDocument().addDocumentListener(new TextFieldMoznostiDocListener(tfLocFlora.getTextField()));
-        tfLocNac.getTextField().getDocument().addDocumentListener(new TextFieldMoznostiDocListener(tfLocNac.getTextField()));
-        tfLocNgc.getTextField().getDocument().addDocumentListener(new TextFieldMoznostiDocListener(tfLocNgc.getTextField()));
-        tfLocVac.getTextField().getDocument().addDocumentListener(new TextFieldMoznostiDocListener(tfLocVac.getTextField()));
-        tfLocVgc.getTextField().getDocument().addDocumentListener(new TextFieldMoznostiDocListener(tfLocVgc.getTextField()));
-        tfLocProtArea.getTextField().getDocument().addDocumentListener(new TextFieldMoznostiDocListener(tfLocProtArea.getTextField()));
-        tfLocVill.getTextField().getDocument().addDocumentListener(new TextFieldMoznostiDocListener(tfLocVill.getTextField()));
-        tfZarHerbar.getTextField().getDocument().addDocumentListener(new TextFieldMoznostiDocListener(tfZarHerbar.getTextField()));
-        tfZarDallaTorre.getTextField().getDocument().addDocumentListener(new TextFieldMoznostiDocListener(tfZarDallaTorre.getTextField()));
-        tfZarExsikat.getTextField().getDocument().addDocumentListener(new TextFieldMoznostiDocListener(tfZarExsikat.getTextField()));
-        tfZarVoucher.getTextField().getDocument().addDocumentListener(new TextFieldMoznostiDocListener(tfZarVoucher.getTextField()));
-        tfLitJournalTitle.getTextField().getDocument().addDocumentListener(new TextFieldMoznostiDocListener(tfLitJournalTitle.getTextField()));
+        tfUrcStdMeno.getTextField().getDocument().addDocumentListener(new TextFieldMoznostiDocListener(tfUrcStdMeno.getTextField(), this.listMoznosti));
+        tfRevStdMeno.getTextField().getDocument().addDocumentListener(new TextFieldMoznostiDocListener(tfRevStdMeno.getTextField(), this.listMoznosti));
+        tfLocBrumFour.getTextField().getDocument().addDocumentListener(new TextFieldMoznostiDocListener(tfLocBrumFour.getTextField(), this.listMoznosti));
+        tfLocFlora.getTextField().getDocument().addDocumentListener(new TextFieldMoznostiDocListener(tfLocFlora.getTextField(), this.listMoznosti));
+        tfLocNac.getTextField().getDocument().addDocumentListener(new TextFieldMoznostiDocListener(tfLocNac.getTextField(), this.listMoznosti));
+        tfLocNgc.getTextField().getDocument().addDocumentListener(new TextFieldMoznostiDocListener(tfLocNgc.getTextField(), this.listMoznosti));
+        tfLocVac.getTextField().getDocument().addDocumentListener(new TextFieldMoznostiDocListener(tfLocVac.getTextField(), this.listMoznosti));
+        tfLocVgc.getTextField().getDocument().addDocumentListener(new TextFieldMoznostiDocListener(tfLocVgc.getTextField(), this.listMoznosti));
+        tfLocProtArea.getTextField().getDocument().addDocumentListener(new TextFieldMoznostiDocListener(tfLocProtArea.getTextField(), this.listMoznosti));
+        tfLocVill.getTextField().getDocument().addDocumentListener(new TextFieldMoznostiDocListener(tfLocVill.getTextField(), this.listMoznosti));
+        tfZarHerbar.getTextField().getDocument().addDocumentListener(new TextFieldMoznostiDocListener(tfZarHerbar.getTextField(), this.listMoznosti));
+        tfZarDallaTorre.getTextField().getDocument().addDocumentListener(new TextFieldMoznostiDocListener(tfZarDallaTorre.getTextField(), this.listMoznosti));
+        tfZarExsikat.getTextField().getDocument().addDocumentListener(new TextFieldMoznostiDocListener(tfZarExsikat.getTextField(), this.listMoznosti));
+        tfZarVoucher.getTextField().getDocument().addDocumentListener(new TextFieldMoznostiDocListener(tfZarVoucher.getTextField(), this.listMoznosti));
+        tfLitJournalTitle.getTextField().getDocument().addDocumentListener(new TextFieldMoznostiDocListener(tfLitJournalTitle.getTextField(), this.listMoznosti));
     }
 
     /**
@@ -691,7 +692,7 @@ public class MainFrame extends javax.swing.JFrame implements PropertyChangeListe
                 String tableName = (String) jListTables.getSelectedValue();
 
                 //kedze niektore z tabuliek nemaju stlpec "name", treba urcit podla coho sa maju usporiadat
-                List<Entity> resultList;
+                List<AssociableEntity> resultList;
                 switch (tableName) {
                     case "DallaTorre":
                         resultList = hq.getAllRecords(tableName, "idEvid");
@@ -795,6 +796,10 @@ public class MainFrame extends javax.swing.JFrame implements PropertyChangeListe
         }
     }
 
+    /**
+     * Handles populating of revision fields on Record revisions (Revizie) tab when a revision
+     * is selected in the table (Prehlad revizii).
+     */
     private class TableRevisionsSelectionListener implements ListSelectionListener {
 
         @Override
@@ -818,6 +823,10 @@ public class MainFrame extends javax.swing.JFrame implements PropertyChangeListe
         }
     }
 
+    /**
+     * Handles populating of fields on Images tab (Obrazky) when an image record
+     * is selected in the table (Prehlad obrazkov).
+     */
     private class TableImagesSelectionListener implements ListSelectionListener {
 
         @Override
@@ -837,6 +846,10 @@ public class MainFrame extends javax.swing.JFrame implements PropertyChangeListe
         }
     }
 
+    /**
+     * Handles populating of fields on Literature source tab (Literarny zdroj) when
+     * a literature source is selected in the tab (Prehlad literarnych zdrojov).
+     */
     private class TableLitSourceSelectionListener implements ListSelectionListener {
 
         @Override
@@ -859,6 +872,10 @@ public class MainFrame extends javax.swing.JFrame implements PropertyChangeListe
         }
     }
 
+    /**
+     * Enables copy and delete buttons when a record is selected in the Records overview tab
+     * (Prehlad udajov). When the record is deselected, the buttons are disabled.
+     */
     private class TableRecordsOverviewSelectionListener implements ListSelectionListener {
 
         @Override
@@ -874,6 +891,10 @@ public class MainFrame extends javax.swing.JFrame implements PropertyChangeListe
         }
     }
 
+    /**
+     * Enables/disables delete button when record is selected on the Tables overview 
+     * tab (Prehlad tabuliek).
+     */
     private class TablesOverviewSelectionListener implements ListSelectionListener {
 
         @Override
@@ -887,6 +908,10 @@ public class MainFrame extends javax.swing.JFrame implements PropertyChangeListe
         }
     }
 
+    /**
+     * Handles double click on the record in Tables overview tab (Prehlad tabuliek). Opens a dialog to edit
+     * doubleclicked record.
+     */
     private class TablesOverviewDoubleClick extends MouseAdapter {
 
         @Override
@@ -900,7 +925,7 @@ public class MainFrame extends javax.swing.JFrame implements PropertyChangeListe
                         log.info("TablesOverview entity populated - to be edited.");
                         PagingModel tblModel = (PagingModel) target.getModel();
                         dcfEntity.setIsNew(false);
-                        dcfEntity.setEntity((Entity) tblModel.getValueAt(modelRow, tblModel.getColumnCount() - 1));
+                        dcfEntity.setEntity((AssociableEntity) tblModel.getValueAt(modelRow, tblModel.getColumnCount() - 1));
                         dcfEntity.showFrame(tblModel);
                     }
                 }
@@ -908,6 +933,10 @@ public class MainFrame extends javax.swing.JFrame implements PropertyChangeListe
         }
     }
 
+    /**
+     * Handles double click on the record in Records overview tab (Prehlad udajov).
+     * Opens doubleclicked record for editing.
+     */
     private class RecordsOverviewDoubleClick extends MouseAdapter {
 
         @Override
@@ -930,6 +959,11 @@ public class MainFrame extends javax.swing.JFrame implements PropertyChangeListe
         }
     }
 
+    /**
+     * Handles a correct display of accepted name when plant name is selected.
+     * When selected name itself is an accepted name, same name is displayed. 
+     * Otherwise the corresponding accepted name is displayed.
+     */
     private class StdMenoDocumentListener implements DocumentListener {
 
         private TextFieldMoznosti fieldStdName;
@@ -983,7 +1017,7 @@ public class MainFrame extends javax.swing.JFrame implements PropertyChangeListe
         private void setAcceptedNameAndAttrs() {
             ListOfSpecies los = (ListOfSpecies) fieldStdName.getEntity();
             if (los != null) {
-                ListOfSpecies acc = los.getListOfSpecies();
+                ListOfSpecies acc = los.getAcceptedName();
                 fieldAccName.setText("");
                 if (acc != null) {
                     fieldAccName.setText(acc.toString());
@@ -1002,33 +1036,40 @@ public class MainFrame extends javax.swing.JFrame implements PropertyChangeListe
         }
     }
 
+    /**
+     * Handles text changes in TextFieldMoznosti. Anything written to this field
+     * is mirrored to the filter field of the FilterJList.
+     */
     private class TextFieldMoznostiDocListener implements DocumentListener {
 
         private JTextField tf;
+        private FilterJList listMoznosti;
 
-        public TextFieldMoznostiDocListener(JTextField tf) {
+        public TextFieldMoznostiDocListener(JTextField tf, FilterJList listMoznosti) {
             this.tf = tf;
+            this.listMoznosti = listMoznosti;
         }
 
         @Override
         public void insertUpdate(DocumentEvent e) {
-            listMoznosti.getFilterField().setText(this.tf.getText());
+            this.listMoznosti.getFilterField().setText(this.tf.getText());
         }
 
         @Override
         public void removeUpdate(DocumentEvent e) {
-            listMoznosti.getFilterField().setText(this.tf.getText());
+            this.listMoznosti.getFilterField().setText(this.tf.getText());
         }
 
         @Override
         public void changedUpdate(DocumentEvent e) {
-            listMoznosti.getFilterField().setText(this.tf.getText());
+            this.listMoznosti.getFilterField().setText(this.tf.getText());
         }
     }
 
     /**
      * Actions
      */
+    
     private class PreviousPageAction extends AbstractAction {
 
         @Override
@@ -1126,7 +1167,7 @@ public class MainFrame extends javax.swing.JFrame implements PropertyChangeListe
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            Entity stdMeno = tfRevStdMeno.getEntity();
+            AssociableEntity stdMeno = tfRevStdMeno.getEntity();
             //yet not requred, so commented out
 //            if (stdMeno != null && stdMeno instanceof ListOfSpecies) {
             ListOfSpecies meno = (ListOfSpecies) stdMeno;
@@ -1150,7 +1191,7 @@ public class MainFrame extends javax.swing.JFrame implements PropertyChangeListe
                     int modelRow = jTableRevisions.convertColumnIndexToModel(row);
                     rev = revModel.getRevisions().get(modelRow);
                     menaTax = rev.getMenaTaxonov();
-                    menaTax.setListOfSpecies(meno);
+                    menaTax.setSpecies(meno);
                     menaTax.setMenoScheda(nazovListok);
                     menaTax.setPoznamka(poznamka);
                     rev = ListAddRemoveUtils.setRevisorsAndIdentificators(rev, revisors);
@@ -1379,7 +1420,7 @@ public class MainFrame extends javax.swing.JFrame implements PropertyChangeListe
     }
 
     /**
-     * Akcia, ktora uklada udaj do databazy.
+     * Saves record to the database.
      */
     private class SaveAction extends AbstractAction {
 
@@ -1494,10 +1535,10 @@ public class MainFrame extends javax.swing.JFrame implements PropertyChangeListe
                 JButton btn = (JButton) e.getSource();
                 name = btn.getName();
             }
-            Entity entity;
+            AssociableEntity entity;
             tblModel = (PagingModel) MainFrame.this.jTableOverview.getModel();
             if (name != null && name.equals("jListMoznostiAdd")) { //kliknute pridat na zozname
-                List<Entity> moznosti = MainFrame.this.listMoznosti.getContainer();
+                List<AssociableEntity> moznosti = MainFrame.this.listMoznosti.getContainer();
                 if (moznosti != null && !moznosti.isEmpty()) {
                     log.info("JListMoznosti - creating new entity.");
                     entity = moznosti.get(0);
@@ -1514,7 +1555,7 @@ public class MainFrame extends javax.swing.JFrame implements PropertyChangeListe
             }
         }
 
-        private void openDialog(Entity entity) {
+        private void openDialog(AssociableEntity entity) {
             if (entity != null) {
                 MainFrame.this.dcfEntity.setIsNew(true);
                 MainFrame.this.dcfEntity.setEntity(entity);
@@ -1544,7 +1585,7 @@ public class MainFrame extends javax.swing.JFrame implements PropertyChangeListe
                         int modelRow = jTableOverview.convertRowIndexToModel(row);
                         if (jTableOverview.getModel() instanceof PagingModel) {
                             PagingModel tblModel = (PagingModel) jTableOverview.getModel();
-                            Entity ent = (Entity) tblModel.getValueAt(modelRow, tblModel.getColumnCount() - 1);
+                            AssociableEntity ent = (AssociableEntity) tblModel.getValueAt(modelRow, tblModel.getColumnCount() - 1);
                             if (ent != null) {
                                 try {
                                     hq.deleteEntity(ent);
@@ -1679,7 +1720,7 @@ public class MainFrame extends javax.swing.JFrame implements PropertyChangeListe
     }
 
     /**
-     * Otvori zalozku pre vlozenie novej herbarovej polozky.
+     * Opens tab for new herbarium record.
      */
     private class ShowNewHerbariumRecordTabAction extends AbstractAction {
 
@@ -1715,7 +1756,7 @@ public class MainFrame extends javax.swing.JFrame implements PropertyChangeListe
     }
 
     /**
-     * Otvori zalozku pre novy literarn udaj.
+     * Opens tab for new literature record.
      */
     private class ShowNewLiteratureRecordTabAction extends AbstractAction {
 
@@ -1751,7 +1792,7 @@ public class MainFrame extends javax.swing.JFrame implements PropertyChangeListe
     }
 
     /**
-     * Otvori zalozku pre novy terenny udaj.
+     * Opens tab for new field record.
      */
     private class ShowNewFieldRecordTabAction extends AbstractAction {
 
@@ -1784,7 +1825,7 @@ public class MainFrame extends javax.swing.JFrame implements PropertyChangeListe
     }
 
     /**
-     * Otvori zalozku prehladu vlozenych udajov.
+     * Opens Records overview tab (Prehlad udajov)
      */
     private class ShowRecordsOverviewTabAction extends AbstractAction {
 
@@ -1801,7 +1842,9 @@ public class MainFrame extends javax.swing.JFrame implements PropertyChangeListe
         }
     }
 
-    // zobraz okno na export
+    /**
+     * Displays export window.
+     */
     private class ShowExportWindowAction extends AbstractAction {
 
         @Override
@@ -1811,7 +1854,7 @@ public class MainFrame extends javax.swing.JFrame implements PropertyChangeListe
     }
 
     /**
-     * Otvori zalozku prehladu tabuliek v databaze.
+     * Opens a Tables overview tab (Prehlad tabuliek).
      */
     private class ShowTablesOverviewTabAction extends AbstractAction {
 
@@ -1824,8 +1867,8 @@ public class MainFrame extends javax.swing.JFrame implements PropertyChangeListe
     }
 
     /**
-     * Prihlasi uzivatela. Prihlasi sa do databazy pod udajmi uzivatela.
-     * Uzivatel musi existovat v databaze ako rola user.
+     * Loggs in a user. User must exist in the database as a role and in the table
+     * uzivatelia.
      */
     private class DoLoginAction extends AbstractAction {
 
@@ -1853,7 +1896,7 @@ public class MainFrame extends javax.swing.JFrame implements PropertyChangeListe
     }
 
     /**
-     * Zatvori prihlasovaci prompt.
+     * Closes login dialog.
      */
     private class CancelLoginAction extends AbstractAction {
 
@@ -1864,8 +1907,7 @@ public class MainFrame extends javax.swing.JFrame implements PropertyChangeListe
     }
 
     /**
-     * Skopiruje cely existujuci udaj a vytvori z neho novy. (Herbarovy a
-     * literarny udaj ok)
+     * Copies complete existing record and creates a new one from it.
      */
     private class CopyRecordAction extends AbstractAction {
 
@@ -2045,7 +2087,7 @@ public class MainFrame extends javax.swing.JFrame implements PropertyChangeListe
         if (menaTax == null) {
             menaTax = new MenaTaxonov();
         }
-        menaTax.setListOfSpecies(stdMeno);
+        menaTax.setSpecies(stdMeno);
         menaTax.setMenoScheda(menoScheda);
         menaTax.setPoznamka(poznamka);
 
@@ -2362,7 +2404,7 @@ public class MainFrame extends javax.swing.JFrame implements PropertyChangeListe
      */
     private boolean deleteRecord(int id) {
         try {
-            Entity ent = (Entity) hq.getById(Udaj.class, id);
+            AssociableEntity ent = (AssociableEntity) hq.getById(Udaj.class, id);
             if (ent instanceof Udaj) {
                 log.info("Deleting udaj and its dependencies.");
                 Udaj udaj = (Udaj) ent;
@@ -2580,9 +2622,9 @@ public class MainFrame extends javax.swing.JFrame implements PropertyChangeListe
         MenaTaxonov menaTax = identif.getMenaTaxonov();
         if (menaTax != null) {
             tfUrcNazovScheda.setText(menaTax.getMenoScheda());
-            if (menaTax.getListOfSpecies() != null) {
-                tfUrcStdMeno.setEntity(menaTax.getListOfSpecies());
-                tfUrcAccName.setText(menaTax.getListOfSpecies().getListOfSpecies() == null ? tfUrcStdMeno.getTextField().getText() : identif.getMenaTaxonov().getListOfSpecies().getListOfSpecies().getMeno());
+            if (menaTax.getSpecies() != null) {
+                tfUrcStdMeno.setEntity(menaTax.getSpecies());
+                tfUrcAccName.setText(menaTax.getSpecies().getAcceptedName() == null ? tfUrcStdMeno.getTextField().getText() : identif.getMenaTaxonov().getSpecies().getAcceptedName().getMeno());
             }
             tfUrcPoznamka.setText(menaTax.getPoznamka());
         }
@@ -2741,7 +2783,7 @@ public class MainFrame extends javax.swing.JFrame implements PropertyChangeListe
             tfDatumRevSlovom.setText(rev.getDatumSlovom());
 
             if (rev.getMenaTaxonov() != null) {
-                tfRevStdMeno.setEntity(rev.getMenaTaxonov().getListOfSpecies());
+                tfRevStdMeno.setEntity(rev.getMenaTaxonov().getSpecies());
                 tfRevNazovListok.setText(rev.getMenaTaxonov().getMenoScheda());
                 tfRevPoznamka.setText(rev.getMenaTaxonov().getPoznamka());
             } else {
@@ -3001,7 +3043,7 @@ public class MainFrame extends javax.swing.JFrame implements PropertyChangeListe
      */
     private void tfMoznostiFocusGained(MoznostiCaller field, String tablename, String tablefield) {
 //        clearSourceLists();
-        List<Entity> ents = hq.getAllRecords(tablename, tablefield);
+        List<AssociableEntity> ents = hq.getAllRecords(tablename, tablefield);
         //field.setMoznosti(listMoznosti.getMainList());
         listMoznosti.setCaller(field);
         listMoznosti.setContainer(ents);

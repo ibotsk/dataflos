@@ -7,7 +7,7 @@ package sk.sav.bot.dataflos.entity;
 import java.util.Date;
 
 /**
- *
+ * Unused
  * @author Matus
  */
 public class Revizie {
@@ -45,7 +45,7 @@ public class Revizie {
         return id;
     }
 
-    private void setId(Integer id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

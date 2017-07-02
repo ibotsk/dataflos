@@ -1,25 +1,39 @@
 package sk.sav.bot.dataflos.entity;
 
-import sk.sav.bot.dataflos.entity.interf.Entity;
+import sk.sav.bot.dataflos.entity.interf.AssociableEntity;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+
 /**
  * TaxonPochybnost
  */
-public class TaxonPochybnost implements java.io.Serializable, Entity {
+@Entity
+public class TaxonPochybnost implements java.io.Serializable, AssociableEntity {
 
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
     private String skratka;
 	private String popis;
-    private Set listOfSpecies = new HashSet(0);
+	
+	@OneToMany(fetch = FetchType.LAZY, mappedBy = "taxonPochybnost")
+    private Set<ListOfSpecies> listOfSpecies = new HashSet<>(0);
 
     public TaxonPochybnost() {
     }
 
-    public TaxonPochybnost(String skratka, String popis, Set listOfSpecies) {
+    public TaxonPochybnost(String skratka, String popis, Set<ListOfSpecies> listOfSpecies) {
         this.skratka = skratka;
 		this.popis = popis;
         this.listOfSpecies = listOfSpecies;
@@ -29,7 +43,7 @@ public class TaxonPochybnost implements java.io.Serializable, Entity {
         return this.id;
     }
 
-    private void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -49,11 +63,11 @@ public class TaxonPochybnost implements java.io.Serializable, Entity {
         this.popis = popis;
     }
 
-    public Set getListOfSpecies() {
+    public Set<ListOfSpecies> getListOfSpecies() {
         return this.listOfSpecies;
     }
 
-    public void setListOfSpecies(Set listOfSpecies) {
+    public void setListOfSpecies(Set<ListOfSpecies> listOfSpecies) {
         this.listOfSpecies = listOfSpecies;
     }
 

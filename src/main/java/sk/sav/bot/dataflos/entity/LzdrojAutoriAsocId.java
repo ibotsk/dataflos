@@ -6,13 +6,18 @@ package sk.sav.bot.dataflos.entity;
 
 import java.io.Serializable;
 
+import javax.persistence.Embeddable;
+
 /**
  *
  * @author Matus
  */
+@Embeddable
 public class LzdrojAutoriAsocId implements Serializable {
     
-    private int idLitZdroj;
+	private static final long serialVersionUID = 1L;
+	
+	private int idLitZdroj;
     private int idMenoAutora;
 
     public LzdrojAutoriAsocId() {

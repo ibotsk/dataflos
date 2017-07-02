@@ -4,19 +4,31 @@
  */
 package sk.sav.bot.dataflos.entity;
 
-import sk.sav.bot.dataflos.entity.interf.Entity;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+
+import sk.sav.bot.dataflos.entity.interf.AssociableEntity;
+
 /**
  *
  * @author Matus
  */
-public class Uzivatelia implements Serializable, Entity {
-    
+@Entity
+public class Uzivatelia implements Serializable, AssociableEntity {
+
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
+    
     private String login;
     private String prefixCk;
     private Integer ckLow;
@@ -76,7 +88,7 @@ public class Uzivatelia implements Serializable, Entity {
         return id;
     }
 
-    private void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 

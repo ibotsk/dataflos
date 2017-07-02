@@ -4,7 +4,7 @@
  */
 package sk.sav.bot.dataflos.gui;
 
-import sk.sav.bot.dataflos.entity.interf.Entity;
+import sk.sav.bot.dataflos.entity.interf.AssociableEntity;
 import java.awt.BorderLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.FocusListener;
@@ -19,7 +19,7 @@ import javax.swing.border.CompoundBorder;
  */
 public class TextFieldMoznosti extends JPanel implements MoznostiCaller {
 
-    private Entity entity;
+    private AssociableEntity entity;
 //    private JList moznosti;
     private JTextField textField;
 //    private JButton btnAdd = new JButton();
@@ -77,11 +77,11 @@ public class TextFieldMoznosti extends JPanel implements MoznostiCaller {
         this.btnClear.setAction(new BtnClearAction(null, new ImageIcon(getClass().getResource("/Eraser-icon.png"))));
     }
 
-    public Entity getEntity() {
+    public AssociableEntity getEntity() {
         return entity;
     }
 
-    public void setEntity(Entity entity) {
+    public void setEntity(AssociableEntity entity) {
         this.entity = entity;
         if (this.entity != null) {
             textField.setText(this.entity.toString());
@@ -174,8 +174,8 @@ public class TextFieldMoznosti extends JPanel implements MoznostiCaller {
 //    }
     @Override
     public void setSelected(Object source) {
-        if (source instanceof Entity) {
-            Entity ent = (Entity) source;
+        if (source instanceof AssociableEntity) {
+            AssociableEntity ent = (AssociableEntity) source;
             setEntity(ent);
         }
     }

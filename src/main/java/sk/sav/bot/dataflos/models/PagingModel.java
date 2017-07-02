@@ -4,7 +4,7 @@
  */
 package sk.sav.bot.dataflos.models;
 
-import sk.sav.bot.dataflos.entity.interf.Entity;
+import sk.sav.bot.dataflos.entity.interf.AssociableEntity;
 import sk.sav.bot.dataflos.gui.PagingTableInterf;
 import java.util.List;
 import javax.swing.ImageIcon;
@@ -19,13 +19,13 @@ public class PagingModel extends AbstractTableModel implements PagingTableInterf
     protected int pageSize;
     protected int pageOffset;
     protected int schvaleneColumn;
-    protected List<Entity> data;
+    protected List<AssociableEntity> data;
 
-    public PagingModel(List<Entity> data) {
+    public PagingModel(List<AssociableEntity> data) {
         this(data == null ? 0 : data.size(), 100000, data);
     }
 
-    public PagingModel(int numRows, int size, List<Entity> data) {
+    public PagingModel(int numRows, int size, List<AssociableEntity> data) {
         this.data = data;
         this.pageSize = size;
         this.pageOffset = 0;
@@ -51,7 +51,7 @@ public class PagingModel extends AbstractTableModel implements PagingTableInterf
         if (this.data == null || this.data.isEmpty()) {
             return 0;
         }
-        Entity ent = this.data.get(0);
+        AssociableEntity ent = this.data.get(0);
         if (ent == null) {
             return 0;
         }
@@ -71,7 +71,7 @@ public class PagingModel extends AbstractTableModel implements PagingTableInterf
             return null;
         }
         int realRow = row + (pageOffset * pageSize);
-        Entity ent = this.data.get(realRow);
+        AssociableEntity ent = this.data.get(realRow);
         if (ent != null && ent.namesAndValues() != null && col < ent.namesAndValues().size()) {
             // v pripade ak entita ma posledny stlpec s informaciou ci uz bola schválena/neschválena, zobraz k tomu prislusnu ikonku
             if(data != null && (col == schvaleneColumn) && (ent.namesAndValues().get(schvaleneColumn)[0].equals("Schválené"))){
@@ -92,7 +92,7 @@ public class PagingModel extends AbstractTableModel implements PagingTableInterf
         if (this.data == null) {
             return null;
         }
-        Entity ent = this.data.get(0);
+        AssociableEntity ent = this.data.get(0);
         if (ent != null && col < ent.namesAndValues().size()) {
             return ent.namesAndValues().get(col)[0];
         }
@@ -122,16 +122,16 @@ public class PagingModel extends AbstractTableModel implements PagingTableInterf
         return (int) Math.ceil((double) this.data.size() / pageSize);
     }
     
-    public void addRow(Entity entity) {
+    public void addRow(AssociableEntity entity) {
         data.add(entity);
         fireTableRowsInserted(data.size() - 1, data.size() - 1);
     }
 
-    public List<Entity> getData() {
+    public List<AssociableEntity> getData() {
         return data;
     }
 
-    public void setData(List<Entity> data) {
+    public void setData(List<AssociableEntity> data) {
         this.data = data;
         fireTableDataChanged();
     }
@@ -141,7 +141,7 @@ public class PagingModel extends AbstractTableModel implements PagingTableInterf
         fireTableDataChanged();
     }
     
-    public void addAndRefresh(Entity newEntity){
+    public void addAndRefresh(AssociableEntity newEntity){
         //add row and make the changes to the table
         getData().add(newEntity);
         fireTableDataChanged();

@@ -5,7 +5,7 @@
  */
 package sk.sav.bot.dataflos.gui;
 
-import sk.sav.bot.dataflos.entity.interf.Entity;
+import sk.sav.bot.dataflos.entity.interf.AssociableEntity;
 
 /**
  * Defines a contract to a component whose values are taken from a list of values

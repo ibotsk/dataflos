@@ -8,7 +8,7 @@ import java.util.List;
  * each table to be create on the fly.
  * @author Matus
  */
-public interface Entity {
+public interface AssociableEntity {
     
     /**
      * Defines a mapping of table fields names and values

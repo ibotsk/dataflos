@@ -4,18 +4,38 @@
  */
 package sk.sav.bot.dataflos.entity;
 
-import sk.sav.bot.dataflos.entity.interf.PeopleAsoc;
 import java.io.Serializable;
+
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+import sk.sav.bot.dataflos.entity.interf.PeopleAsoc;
 
 /**
  *
  * @author Matus
  */
+@Entity
+@Table(name = "lzdroj_editori_asoc")
 public class LzdrojEditoriAsoc implements Serializable, PeopleAsoc {
     
+	private static final long serialVersionUID = 1L;
+	
+	@EmbeddedId
     private LzdrojEditoriAsocId id;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_lit_zdroj")
     private LitZdroj litZdroj;
+    
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_meno_editora")
     private MenaZberRev menoEditora;
+    
     private Integer poradie;
 
     public LzdrojEditoriAsoc() {

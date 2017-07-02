@@ -11,7 +11,7 @@ import sk.sav.bot.dataflos.entity.ListOfSpecies;
 import sk.sav.bot.dataflos.entity.MenaZberRev;
 import sk.sav.bot.dataflos.entity.Obec;
 import sk.sav.bot.dataflos.entity.Udaj;
-import sk.sav.bot.dataflos.entity.interf.Entity;
+import sk.sav.bot.dataflos.entity.interf.AssociableEntity;
 import java.util.List;
 import java.util.Set;
 import org.apache.log4j.Logger;
@@ -59,11 +59,11 @@ public class HibernateQuery {
         return admin;
     }
 
-    public List<Entity> getAllRecords(String tablename) {
+    public List<AssociableEntity> getAllRecords(String tablename) {
         return getAllRecords(tablename, "id");
     }
 
-    public List<Entity> getAllRecords(String tablename, String orderBy) {
+    public List<AssociableEntity> getAllRecords(String tablename, String orderBy) {
         if (orderBy == null) {
             log.error("In getAllRecords method orderBy is NULL");
             throw new NullPointerException("order by");
@@ -227,7 +227,7 @@ public class HibernateQuery {
         return ent;
     }
 
-    public void insertOrUpdateEntity(Entity entity) {
+    public void insertOrUpdateEntity(AssociableEntity entity) {
         Transaction tx = null;
         try {
             tx = this.session.beginTransaction();
@@ -242,11 +242,11 @@ public class HibernateQuery {
         }
     }
 
-    public void insertEntities(Set<Entity> entities) {
+    public void insertEntities(Set<AssociableEntity> entities) {
         Transaction tx = null;
         try {
             tx = this.session.beginTransaction();
-            for (Entity entity : entities) {
+            for (AssociableEntity entity : entities) {
                 this.session.save(entity);
             }
             tx.commit();
@@ -259,7 +259,7 @@ public class HibernateQuery {
         }
     }
 
-    public void deleteEntity(Entity entity) {
+    public void deleteEntity(AssociableEntity entity) {
         if (entity != null) {
             Transaction tx = null;
             try {

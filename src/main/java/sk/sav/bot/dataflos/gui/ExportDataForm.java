@@ -354,7 +354,7 @@ public class ExportDataForm extends javax.swing.JFrame {
                 urcenie = udajInit.getUrcenie();
             }
 
-            String los = ((urcenie == null || urcenie.getMenaTaxonov() == null || urcenie.getMenaTaxonov().getListOfSpecies() == null) ? "" : urcenie.getMenaTaxonov().getListOfSpecies().getMeno());
+            String los = ((urcenie == null || urcenie.getMenaTaxonov() == null || urcenie.getMenaTaxonov().getSpecies() == null) ? "" : urcenie.getMenaTaxonov().getSpecies().getMeno());
             // ak dane meno este doteraz nebolo evidovane, zarad ho do zoznamu mien a vytvor prenho novy zoznam udajov
             if (!losNames.contains(los)){
                 losNames.add(los);
@@ -883,14 +883,14 @@ public class ExportDataForm extends javax.swing.JFrame {
                     cell.setCellValue(sr.getMenaTaxonov().getMenoScheda());
                 }
                 
-                if (sr.getMenaTaxonov() != null && sr.getMenaTaxonov().getListOfSpecies() != null && sr.getMenaTaxonov().getListOfSpecies().getMeno() != null){
+                if (sr.getMenaTaxonov() != null && sr.getMenaTaxonov().getSpecies() != null && sr.getMenaTaxonov().getSpecies().getMeno() != null){
                     HSSFCell cell = rowRevision.createCell(24);
-                    cell.setCellValue(sr.getMenaTaxonov().getListOfSpecies().getMeno());
+                    cell.setCellValue(sr.getMenaTaxonov().getSpecies().getMeno());
                 }
                 
-                if (sr.getMenaTaxonov() != null && sr.getMenaTaxonov().getListOfSpecies() != null && sr.getMenaTaxonov().getListOfSpecies().getAutori() != null){
+                if (sr.getMenaTaxonov() != null && sr.getMenaTaxonov().getSpecies() != null && sr.getMenaTaxonov().getSpecies().getAutori() != null){
                     HSSFCell cell = rowRevision.createCell(25);
-                    cell.setCellValue(sr.getMenaTaxonov().getListOfSpecies().getAutori());
+                    cell.setCellValue(sr.getMenaTaxonov().getSpecies().getAutori());
                 }
                 
                 if (sr.getSkupRevDets() != null){
@@ -953,15 +953,15 @@ public class ExportDataForm extends javax.swing.JFrame {
         }
         
         // Štandardizované znenie mena
-        if (udaj.getUrcenie() != null && udaj.getUrcenie().getMenaTaxonov() != null && udaj.getUrcenie().getMenaTaxonov().getListOfSpecies() != null && udaj.getUrcenie().getMenaTaxonov().getListOfSpecies().getMeno() != null){
+        if (udaj.getUrcenie() != null && udaj.getUrcenie().getMenaTaxonov() != null && udaj.getUrcenie().getMenaTaxonov().getSpecies() != null && udaj.getUrcenie().getMenaTaxonov().getSpecies().getMeno() != null){
             HSSFCell cell = row.createCell(1);
-            cell.setCellValue(udaj.getUrcenie().getMenaTaxonov().getListOfSpecies().getMeno());
+            cell.setCellValue(udaj.getUrcenie().getMenaTaxonov().getSpecies().getMeno());
         }
         
         // Autorské skratky
-        if (udaj.getUrcenie() != null && udaj.getUrcenie().getMenaTaxonov() != null && udaj.getUrcenie().getMenaTaxonov().getListOfSpecies() != null && udaj.getUrcenie().getMenaTaxonov().getListOfSpecies().getAutori() != null){
+        if (udaj.getUrcenie() != null && udaj.getUrcenie().getMenaTaxonov() != null && udaj.getUrcenie().getMenaTaxonov().getSpecies() != null && udaj.getUrcenie().getMenaTaxonov().getSpecies().getAutori() != null){
             HSSFCell cell = row.createCell(2);
-            cell.setCellValue(udaj.getUrcenie().getMenaTaxonov().getListOfSpecies().getAutori());
+            cell.setCellValue(udaj.getUrcenie().getMenaTaxonov().getSpecies().getAutori());
         }
         
         // Krajina (Brummitt 4)
@@ -1214,8 +1214,8 @@ public class ExportDataForm extends javax.swing.JFrame {
         }
         schedaSheet.getRow(initRow+5).getCell(initColumn+2).setCellValue(flora);
 
-        String losMeno = (udaj.getUrcenie() == null || udaj.getUrcenie().getMenaTaxonov() == null || udaj.getUrcenie().getMenaTaxonov().getListOfSpecies() == null) ? "" : udaj.getUrcenie().getMenaTaxonov().getListOfSpecies().getMeno();
-        String losAutori = (udaj.getUrcenie() == null || udaj.getUrcenie().getMenaTaxonov() == null || udaj.getUrcenie().getMenaTaxonov().getListOfSpecies() == null || udaj.getUrcenie().getMenaTaxonov().getListOfSpecies().getAutori() == null) ? "" : udaj.getUrcenie().getMenaTaxonov().getListOfSpecies().getAutori();
+        String losMeno = (udaj.getUrcenie() == null || udaj.getUrcenie().getMenaTaxonov() == null || udaj.getUrcenie().getMenaTaxonov().getSpecies() == null) ? "" : udaj.getUrcenie().getMenaTaxonov().getSpecies().getMeno();
+        String losAutori = (udaj.getUrcenie() == null || udaj.getUrcenie().getMenaTaxonov() == null || udaj.getUrcenie().getMenaTaxonov().getSpecies() == null || udaj.getUrcenie().getMenaTaxonov().getSpecies().getAutori() == null) ? "" : udaj.getUrcenie().getMenaTaxonov().getSpecies().getAutori();
         
         RichTextString losRichString = new HSSFRichTextString(losMeno + " " + losAutori);
         if (losMeno.length() > 0 && losAutori.length() > 0){

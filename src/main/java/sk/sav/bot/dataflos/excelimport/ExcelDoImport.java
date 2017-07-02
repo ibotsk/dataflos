@@ -10,7 +10,7 @@ import javax.swing.JOptionPane;
 import javax.swing.SwingWorker;
 import org.apache.log4j.Logger;
 import sk.sav.bot.dataflos.entity.Udaj;
-import sk.sav.bot.dataflos.entity.interf.Entity;
+import sk.sav.bot.dataflos.entity.interf.AssociableEntity;
 import sk.sav.bot.dataflos.factory.UdajFactory;
 import sk.sav.bot.dataflos.util.HibernateQuery;
 
@@ -26,10 +26,10 @@ public class ExcelDoImport extends SwingWorker<Integer, String>{
     HibernateQuery hq;
     UdajFactory uf;
     
-    Map<String, Entity> unsavedEntities = null;
+    Map<String, AssociableEntity> unsavedEntities = null;
     List<Udaj> importUdaje = null;
     
-    public ExcelDoImport(final ExcelImportMonitor im, final HibernateQuery hq, Map<String, Entity> unsavedEntities, List<Udaj> importUdaje) {
+    public ExcelDoImport(final ExcelImportMonitor im, final HibernateQuery hq, Map<String, AssociableEntity> unsavedEntities, List<Udaj> importUdaje) {
         this.im = im;
         this.hq = hq;
         this.uf = UdajFactory.getInstance(hq.getSession());
@@ -41,7 +41,7 @@ public class ExcelDoImport extends SwingWorker<Integer, String>{
     protected Integer doInBackground() throws Exception {
         
         //najprv sa uskutocni vkladanie novych subentit
-        for (Entity ent : unsavedEntities.values()){
+        for (AssociableEntity ent : unsavedEntities.values()){
             hq.insertOrUpdateEntity(ent);
         }
                 

@@ -30,7 +30,7 @@ import sk.sav.bot.dataflos.entity.TaxonOhrozenost;
 import sk.sav.bot.dataflos.entity.TaxonPochybnost;
 import sk.sav.bot.dataflos.entity.TaxonPovodnost;
 import sk.sav.bot.dataflos.entity.Udaj;
-import sk.sav.bot.dataflos.entity.interf.Entity;
+import sk.sav.bot.dataflos.entity.interf.AssociableEntity;
 
 /**
  *
@@ -98,10 +98,10 @@ public class HibernateQueryTest {
     public void testGetAllRecords_String() {
         System.out.println("getAllRecords");
         
-        List<Entity> udajList = hq.getAllRecords("Udaj");
+        List<AssociableEntity> udajList = hq.getAllRecords("Udaj");
         assertNotNull(udajList);
         assertTrue(udajList.size() > 0);
-        Entity ent = udajList.get(0);
+        AssociableEntity ent = udajList.get(0);
         assertThat(ent, instanceOf(Udaj.class));
         Udaj u = (Udaj) ent;
         assertTrue(u.getId() > 0);
@@ -118,17 +118,17 @@ public class HibernateQueryTest {
     public void testGetAllRecords_String_String() {
         System.out.println("getAllRecords");
         
-        List<Entity> casopisyList = hq.getAllRecords("Casopisy", "meno");
+        List<AssociableEntity> casopisyList = hq.getAllRecords("Casopisy", "meno");
         assertNotNull(casopisyList);
         assertTrue(casopisyList.size() > 0);
-        Entity ent = casopisyList.get(0);
+        AssociableEntity ent = casopisyList.get(0);
         assertThat(ent, instanceOf(Casopisy.class));
         Casopisy casopis = (Casopisy) ent;
         assertNotNull(casopis.getMeno());
         assertTrue(((Casopisy)casopisyList.get(0)).getMeno().compareTo(((Casopisy)casopisyList.get(10)).getMeno()) < 0);
-        List<Entity> ftgList = hq.getAllRecords("Ftgokres", "cislo");
+        List<AssociableEntity> ftgList = hq.getAllRecords("Ftgokres", "cislo");
         assertTrue(((Ftgokres)ftgList.get(0)).getCislo().compareTo(((Ftgokres)ftgList.get(10)).getCislo()) < 0);
-        List<Entity> dtList = hq.getAllRecords("DallaTorre", "id");
+        List<AssociableEntity> dtList = hq.getAllRecords("DallaTorre", "id");
         assertTrue(((DallaTorre)dtList.get(0)).getIdEvid().compareTo(((DallaTorre)dtList.get(10)).getIdEvid()) < 0);
     }
 

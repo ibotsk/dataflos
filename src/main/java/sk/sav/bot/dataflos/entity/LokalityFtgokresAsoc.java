@@ -1,4 +1,12 @@
 package sk.sav.bot.dataflos.entity;
+
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 // added July 03, 2014
 
 
@@ -6,12 +14,22 @@ package sk.sav.bot.dataflos.entity;
 /**
  * LokalityFtgokresAsoc
  */
+@Entity
+@Table(name = "lokality_ftgokres_asoc")
 public class LokalityFtgokresAsoc  implements java.io.Serializable {
 
-
-     private LokalityFtgokresAsocId id;
-     private Lokality lokality;
-     private Ftgokres ftgokres;
+	private static final long serialVersionUID = 1L;
+	
+	@EmbeddedId
+	private LokalityFtgokresAsocId id;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_lokality")
+	private Lokality lokality;
+	
+	@ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_ftgokres")
+	private Ftgokres ftgokres;
 
     public LokalityFtgokresAsoc() {
     }

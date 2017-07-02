@@ -12,7 +12,7 @@ import sk.sav.bot.dataflos.entity.ListOfSpecies;
 import sk.sav.bot.dataflos.entity.MenaZberRev;
 import sk.sav.bot.dataflos.entity.Obec;
 import sk.sav.bot.dataflos.entity.Udaj;
-import sk.sav.bot.dataflos.entity.interf.Entity;
+import sk.sav.bot.dataflos.entity.interf.AssociableEntity;
 import sk.sav.bot.dataflos.main.MainFrame;
 import sk.sav.bot.dataflos.models.RecordsInsertedModel;
 import sk.sav.bot.dataflos.util.HibernateQuery;
@@ -1040,20 +1040,20 @@ public class FilterRecordsOverview extends javax.swing.JPanel {
         @Override
         public Void doInBackground() {
             
-            List<Entity> listLos;
-            List<Entity> listGenus;
-            List<Entity> listFamily;
-            List<Entity> listPochybnost;
-            List<Entity> listOhrozenost;
-            List<Entity> listEndemizmus;
-            List<Entity> listPovodnost;
-            List<Entity> listBrummit4;
-            List<Entity> listFtgOkres;
-            List<Entity> listObec;
-            List<Entity> listKvadrant;
-            List<Entity> listAutor;
-            List<Entity> listHerb;
-            List<Entity> listCasopis;
+            List<AssociableEntity> listLos;
+            List<AssociableEntity> listGenus;
+            List<AssociableEntity> listFamily;
+            List<AssociableEntity> listPochybnost;
+            List<AssociableEntity> listOhrozenost;
+            List<AssociableEntity> listEndemizmus;
+            List<AssociableEntity> listPovodnost;
+            List<AssociableEntity> listBrummit4;
+            List<AssociableEntity> listFtgOkres;
+            List<AssociableEntity> listObec;
+            List<AssociableEntity> listKvadrant;
+            List<AssociableEntity> listAutor;
+            List<AssociableEntity> listHerb;
+            List<AssociableEntity> listCasopis;
             
             // docasne vypneme moznost prepinania medzi vsetkymi a vlastnymi udajmi, nech to nesposobi kolizie
             getCbMyOwnRecords().setEnabled(false);

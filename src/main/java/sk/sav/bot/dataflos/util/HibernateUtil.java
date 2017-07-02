@@ -4,10 +4,12 @@
  */
 package sk.sav.bot.dataflos.util;
 
-import java.sql.SQLException;
 import org.apache.log4j.Logger;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+
+import sk.sav.bot.dataflos.entity.Brumit1;
+import sk.sav.bot.dataflos.entity.Brumit2;
 
 /**
  * Hibernate Utility class with a convenient method to get Session Factory
@@ -47,12 +49,12 @@ public class HibernateUtil {
                     .addResource("hbm-xml/Ftgoblast.hbm.xml").addResource("hbm-xml/MenaTaxonov.hbm.xml")
                     .addResource("hbm-xml/Genus.hbm.xml").addResource("hbm-xml/Flora.hbm.xml")
                     .addResource("hbm-xml/UdajZberAsoc.hbm.xml").addResource("hbm-xml/Nac.hbm.xml")
-                    .addResource("hbm-xml/Exsikaty.hbm.xml").addResource("hbm-xml/Brumit1.hbm.xml")
+                    .addResource("hbm-xml/Exsikaty.hbm.xml")//.addResource("hbm-xml/Brumit1.hbm.xml")
                     .addResource("hbm-xml/Vac.hbm.xml").addResource("hbm-xml/Family.hbm.xml")
                     .addResource("hbm-xml/Casopisy.hbm.xml").addResource("hbm-xml/DallaTorre.hbm.xml")
                     .addResource("hbm-xml/SkupRev.hbm.xml").addResource("hbm-xml/MenaZberRev.hbm.xml")
                     .addResource("hbm-xml/Voucher.hbm.xml").addResource("hbm-xml/UdajObrazky.hbm.xml")
-                    .addResource("hbm-xml/Chu.hbm.xml").addResource("hbm-xml/Brumit2.hbm.xml")
+                    .addResource("hbm-xml/Chu.hbm.xml")//.addResource("hbm-xml/Brumit2.hbm.xml")
                     .addResource("hbm-xml/Brumit4.hbm.xml").addResource("hbm-xml/Herbar.hbm.xml")
                     .addResource("hbm-xml/SkupRevDet.hbm.xml").addResource("hbm-xml/Ngc.hbm.xml")
                     .addResource("hbm-xml/Lokality.hbm.xml").addResource("hbm-xml/Obec.hbm.xml")
@@ -62,6 +64,7 @@ public class HibernateUtil {
                     .addResource("hbm-xml/Uzivatelia.hbm.xml")//.addResource("hbm-xml/Revizie.hbm.xml")
                     .addResource("hbm-xml/TaxonPochybnost.hbm.xml").addResource("hbm-xml/TaxonOhrozenost.hbm.xml")
                     .addResource("hbm-xml/TaxonEndemizmus.hbm.xml").addResource("hbm-xml/TaxonPovodnost.hbm.xml");
+            cfg.addAnnotatedClass(Brumit1.class).addAnnotatedClass(Brumit2.class);
             sessionFactory = cfg.buildSessionFactory();
             log.info("Initial Hibernate SessionFactory created.");
         } catch (Throwable ex) { 

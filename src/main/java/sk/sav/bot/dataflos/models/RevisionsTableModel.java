@@ -57,7 +57,7 @@ public class RevisionsTableModel extends AbstractTableModel {
                 case 0:
                     return rev;
                 case 1:
-                    return rev.getMenaTaxonov().getListOfSpecies();
+                    return rev.getMenaTaxonov().getSpecies();
                 case 2:
                     return StringUtils.join(rev.getSkupRevDets().iterator(), ", ");
                 default:

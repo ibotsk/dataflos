@@ -6,7 +6,7 @@ package sk.sav.bot.dataflos.models;
 
 import sk.sav.bot.dataflos.entity.LitZdroj;
 import sk.sav.bot.dataflos.entity.LzdrojAutoriAsoc;
-import sk.sav.bot.dataflos.entity.interf.Entity;
+import sk.sav.bot.dataflos.entity.interf.AssociableEntity;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.table.AbstractTableModel;
@@ -17,21 +17,21 @@ import javax.swing.table.AbstractTableModel;
  */
 public class LiteraturesSearchModel extends AbstractTableModel {
 
-    private List<Entity> literatures;
+    private List<AssociableEntity> literatures;
 
     public LiteraturesSearchModel() {
         this.literatures = new ArrayList<>();
     }
 
-    public LiteraturesSearchModel(List<Entity> literatures) {
+    public LiteraturesSearchModel(List<AssociableEntity> literatures) {
         this.literatures = literatures;
     }
 
-    public List<Entity> getLiteratures() {
+    public List<AssociableEntity> getLiteratures() {
         return literatures;
     }
 
-    public void setLiteratures(List<Entity> literatures) {
+    public void setLiteratures(List<AssociableEntity> literatures) {
         this.literatures = literatures;
     }
 
@@ -115,7 +115,7 @@ public class LiteraturesSearchModel extends AbstractTableModel {
         }
     }
     
-    public void addRow(Entity ent) {
+    public void addRow(AssociableEntity ent) {
         literatures.add(ent);
     }
     
@@ -123,14 +123,14 @@ public class LiteraturesSearchModel extends AbstractTableModel {
         literatures.clear();
     }
     
-    private List<Entity> cloneList(List<Entity> container) {
-        List<Entity> list = new ArrayList();
-        for (Entity entity : container) {
+    private List<AssociableEntity> cloneList(List<AssociableEntity> container) {
+        List<AssociableEntity> list = new ArrayList();
+        for (AssociableEntity entity : container) {
             LitZdroj lz = (LitZdroj) entity;
             LitZdroj litZdroj = new LitZdroj(lz.getCasopis(), lz.getKod(), lz.getTyp(), lz.getNazovClanku(), lz.getNazovClankuPreklad(), lz.getPramen(), /*Integer idCasopis,*/ lz.getRocnik(), lz.getCislo(), lz.getVydavatel(), lz.getRok(), lz.getStrany(), lz.getPoznamka(), lz.getPocetZaznamov(), lz.isKomplet(), lz.isFotka(), lz.getNazovKnihy(), lz.isMapaRozsirenia(), lz.getNazovKapitoly(), lz.getReferencia(), lz.getUdajs());
             //litZdroj.setId(lz.getId());
             litZdroj.setLzdrojAutoriAsocs(lz.getLzdrojAutoriAsocs());
-            Entity copy = litZdroj;
+            AssociableEntity copy = litZdroj;
             
             list.add(copy);
         }

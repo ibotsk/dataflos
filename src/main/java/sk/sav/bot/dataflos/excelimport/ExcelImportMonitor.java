@@ -20,7 +20,7 @@ import javax.swing.event.TableModelEvent;
 import javax.swing.event.TableModelListener;
 import org.apache.log4j.Logger;
 import sk.sav.bot.dataflos.entity.Udaj;
-import sk.sav.bot.dataflos.entity.interf.Entity;
+import sk.sav.bot.dataflos.entity.interf.AssociableEntity;
 
 /**
  *
@@ -240,7 +240,7 @@ public class ExcelImportMonitor extends javax.swing.JFrame implements PropertyCh
     // import entities and udajs to DB, via separate thread
     private void btnDoImportMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnDoImportMouseClicked
         
-        Map<String, Entity> unsavedEntities = iew.getUnsavedEntities();
+        Map<String, AssociableEntity> unsavedEntities = iew.getUnsavedEntities();
         List<Udaj> importUdaje = iew.getImportUdaje();
 
         loadingDialog.getProgressBar().setIndeterminate(false);

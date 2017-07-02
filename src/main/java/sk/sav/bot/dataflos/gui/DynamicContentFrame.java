@@ -7,7 +7,7 @@ package sk.sav.bot.dataflos.gui;
 import com.jidesoft.swing.AutoCompletionComboBox;
 import sk.sav.bot.dataflos.entity.ListOfSpecies;
 import sk.sav.bot.dataflos.entity.LitZdroj;
-import sk.sav.bot.dataflos.entity.interf.Entity;
+import sk.sav.bot.dataflos.entity.interf.AssociableEntity;
 import sk.sav.bot.dataflos.util.HibernateQuery;
 import sk.sav.bot.dataflos.util.SpringUtilities;
 import sk.sav.bot.dataflos.util.StdMenoFontTypeRenderer;
@@ -35,7 +35,7 @@ import sk.sav.bot.dataflos.models.PagingModel;
  */
 public class DynamicContentFrame extends JDialog {
 
-    private Entity entity;
+    private AssociableEntity entity;
     private JPanel jPanel = new JPanel(new SpringLayout());
     private JButton btnOk = new JButton();
     private JButton btnCancel = new JButton();
@@ -142,7 +142,7 @@ public class DynamicContentFrame extends JDialog {
                 cb.setEnabled(false);
             }
             return cb;
-        } else if (intfcs.length > 1 && intfcs[1].equals(Entity.class)) {
+        } else if (intfcs.length > 1 && intfcs[1].equals(AssociableEntity.class)) {
             
             String column = "meno";
             
@@ -151,15 +151,15 @@ public class DynamicContentFrame extends JDialog {
                 column = "skratka";
             }
             
-            List<Entity> ents = this.hq.getAllRecords(fld.getType().getCanonicalName(), column);
+            List<AssociableEntity> ents = this.hq.getAllRecords(fld.getType().getCanonicalName(), column);
             
             // v pripade tohto pola - "Akceptovane meno", sa v ponuke ukazu nie vsetky polozky z ListOfSpecies, ale iba tie akceptovane
             if (fld.getType().equals(ListOfSpecies.class)){
                 
                 //zobraz iba akceptovane mena
-                List<Entity> entListTMP = new ArrayList<>(ents);
+                List<AssociableEntity> entListTMP = new ArrayList<>(ents);
                 ents.clear();
-                for (Entity entTMP : entListTMP){
+                for (AssociableEntity entTMP : entListTMP){
                     ListOfSpecies valueLOS = (ListOfSpecies) entTMP;
                     if (valueLOS.getTyp() != null && valueLOS.getTyp() == 'A'){
                         ents.add(entTMP);
@@ -189,7 +189,7 @@ public class DynamicContentFrame extends JDialog {
         return tf;
     }
 
-    public Entity getEntity() {
+    public AssociableEntity getEntity() {
         return entity;
     }
 
@@ -198,13 +198,13 @@ public class DynamicContentFrame extends JDialog {
      *
      * @param entity entity assigned to this frame o operate with
      */
-    public void setEntity(Entity ent) {
+    public void setEntity(AssociableEntity ent) {
         try {
             Object obj = ent;
             if (ent instanceof HibernateProxy){   
                 obj = ((HibernateProxy) ent).getHibernateLazyInitializer().getImplementation();   
             }
-            entity = (Entity) obj;
+            entity = (AssociableEntity) obj;
             int size = 0;
             ResourceBundle rsc = PropertyResourceBundle.getBundle("resource");
             if (rsc == null){
@@ -322,9 +322,9 @@ public class DynamicContentFrame extends JDialog {
                 }
 
                 if (canSave){
-                    Entity entToSave;
+                    AssociableEntity entToSave;
                     if (isNew) {
-                        entToSave = (Entity) cls.newInstance();
+                        entToSave = (AssociableEntity) cls.newInstance();
                     } else {
                         entToSave = entity;
                     }
@@ -343,7 +343,7 @@ public class DynamicContentFrame extends JDialog {
                             if (ac.getSelectedItem() == null){
                                 value = null;
                             } else {
-                                value = (Entity) ac.getSelectedItem();
+                                value = (AssociableEntity) ac.getSelectedItem();
                             }
                         } else if (component instanceof JTextField) {
                             JTextField tf = (JTextField) component;

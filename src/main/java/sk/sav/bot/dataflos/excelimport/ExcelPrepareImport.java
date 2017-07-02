@@ -21,7 +21,7 @@ import sk.sav.bot.dataflos.entity.Ngc;
 import sk.sav.bot.dataflos.entity.Obec;
 import sk.sav.bot.dataflos.entity.SkupRev;
 import sk.sav.bot.dataflos.entity.Udaj;
-import sk.sav.bot.dataflos.entity.interf.Entity;
+import sk.sav.bot.dataflos.entity.interf.AssociableEntity;
 import sk.sav.bot.dataflos.factory.ListAddRemoveUtils;
 import sk.sav.bot.dataflos.models.ImportMonitorModel;
 import sk.sav.bot.dataflos.util.HandyUtils;
@@ -57,7 +57,7 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 public class ExcelPrepareImport extends SwingWorker<Integer, String>{
     
     // kolekcia entit (zaznamov do tabuliek), ktore sa doteraz nevyskytovali v DB a je ich potrebne vlozit pred dalsou manipulaciou s nimi
-    Map<String, Entity> unsavedEntities = new HashMap<>();
+    Map<String, AssociableEntity> unsavedEntities = new HashMap<>();
     
     List<Udaj> importUdaje = new ArrayList<>();
     List<Udaj> updateUdaje = new ArrayList<>();
@@ -76,18 +76,18 @@ public class ExcelPrepareImport extends SwingWorker<Integer, String>{
     
     private int progress;
     
-    List<Entity> listLos;
-    List<Entity> listLokalita;
-    List<Entity> listBrumit4;
-    List<Entity> listFtgOkres;
-    List<Entity> listNgc;
-    List<Entity> listObec;
-    List<Entity> listKvadrant;
-    List<Entity> listAutorZberu;
-    List<Entity> listHerb;
-    List<Entity> listHerbPolozka;
-    List<Entity> listExsikat;
-    List<Entity> listCasopis;
+    List<AssociableEntity> listLos;
+    List<AssociableEntity> listLokalita;
+    List<AssociableEntity> listBrumit4;
+    List<AssociableEntity> listFtgOkres;
+    List<AssociableEntity> listNgc;
+    List<AssociableEntity> listObec;
+    List<AssociableEntity> listKvadrant;
+    List<AssociableEntity> listAutorZberu;
+    List<AssociableEntity> listHerb;
+    List<AssociableEntity> listHerbPolozka;
+    List<AssociableEntity> listExsikat;
+    List<AssociableEntity> listCasopis;
     
     String nazovTaxonu = "";
     String acceptMeno = "";
@@ -163,7 +163,7 @@ public class ExcelPrepareImport extends SwingWorker<Integer, String>{
         tableTimes.put("Casopisy", 8);
 
         for (String loadTable : tableTimes.keySet()){
-            List<Entity> data = loadData(loadTable, tableTimes.get(loadTable));
+            List<AssociableEntity> data = loadData(loadTable, tableTimes.get(loadTable));
             switch (loadTable){
                 case "ListOfSpecies":
                     listLos = data;
@@ -1192,7 +1192,7 @@ public class ExcelPrepareImport extends SwingWorker<Integer, String>{
     // sekcia s gettermi, ktore v pripade existujucej entity v prislusnej tabulke vratia referenciu na danu entitu, v opacnom pripade vratia null
 
     private ListOfSpecies getLOSByName(String acceptMeno, String autSkratka) {
-        for (Entity ent : listLos)
+        for (AssociableEntity ent : listLos)
         {
             ListOfSpecies lSpecies = (ListOfSpecies) ent;
             if (lSpecies.getMeno() != null && lSpecies.getMeno().equals(acceptMeno)){
@@ -1205,7 +1205,7 @@ public class ExcelPrepareImport extends SwingWorker<Integer, String>{
     }
     
     private Brumit4 getBrummit4ByName(String b4) {
-        for (Entity ent : listBrumit4)
+        for (AssociableEntity ent : listBrumit4)
         {
             Brumit4 br4 = (Brumit4) ent;
             if (br4.getMeno() != null && br4.getMeno().equals(b4))return br4;
@@ -1214,7 +1214,7 @@ public class ExcelPrepareImport extends SwingWorker<Integer, String>{
     }
     
     private Ftgokres getFtgOkresByNum(String ftgCislo){
-        for (Entity ent : listFtgOkres)
+        for (AssociableEntity ent : listFtgOkres)
         {
             Ftgokres ftg = (Ftgokres) ent;
             if (ftg.getCislo().equals(ftgCislo))return ftg;
@@ -1223,7 +1223,7 @@ public class ExcelPrepareImport extends SwingWorker<Integer, String>{
     }
     
     private Ngc getNgcByName(String ngcNazov){
-        for (Entity ent : listNgc)
+        for (AssociableEntity ent : listNgc)
         {
             Ngc ng = (Ngc) ent;
             if (ng.getMeno() != null && ng.getMeno().equals(ngcNazov))return ng;
@@ -1232,7 +1232,7 @@ public class ExcelPrepareImport extends SwingWorker<Integer, String>{
     }
     
     private Obec getObecByName(String obecNazov){
-        for (Entity ent : listObec)
+        for (AssociableEntity ent : listObec)
         {
             Obec ob = (Obec) ent;
             if (ob.getMeno() != null && ob.getMeno().equals(obecNazov))return ob;
@@ -1241,7 +1241,7 @@ public class ExcelPrepareImport extends SwingWorker<Integer, String>{
     }
     
     private Kvadrant getKvadrantByName(String kvadNazov){
-        for (Entity ent : listKvadrant)
+        for (AssociableEntity ent : listKvadrant)
         {
             Kvadrant kvadrant = (Kvadrant) ent;
             if (kvadrant.getMeno() != null && kvadrant.getMeno().equals(kvadNazov))return kvadrant;
@@ -1250,7 +1250,7 @@ public class ExcelPrepareImport extends SwingWorker<Integer, String>{
     }
     
     private MenaZberRev getAutorByName(String menoAutora){
-        for (Entity ent : listAutorZberu)
+        for (AssociableEntity ent : listAutorZberu)
         {
             MenaZberRev autor = (MenaZberRev) ent;
             if (autor.getMeno() != null && autor.getMeno().equals(menoAutora))return autor;
@@ -1260,7 +1260,7 @@ public class ExcelPrepareImport extends SwingWorker<Integer, String>{
     }
 
     private Herbar getHerbarBySkratka(String herbSkr) {
-        for (Entity ent : listHerb)
+        for (AssociableEntity ent : listHerb)
         {
             Herbar herb = (Herbar) ent;
             if (herb.getSkratkaHerb() != null && herb.getSkratkaHerb().equals(herbSkr))return herb;
@@ -1269,7 +1269,7 @@ public class ExcelPrepareImport extends SwingWorker<Integer, String>{
     }
 
     private Exsikaty getExsikatByMeno(String exsikatNazov) {
-        for (Entity ent : listExsikat)
+        for (AssociableEntity ent : listExsikat)
         {
             Exsikaty exs = (Exsikaty) ent;
             if (exs.getMeno() != null && exs.getMeno().equals(exsikatNazov))return exs;
@@ -1278,7 +1278,7 @@ public class ExcelPrepareImport extends SwingWorker<Integer, String>{
     }
     
     private Casopisy getCasopisByMeno(String casopisNazov) {
-        for (Entity ent : listCasopis)
+        for (AssociableEntity ent : listCasopis)
         {
             Casopisy cas = (Casopisy) ent;
             if (cas.getMeno() != null && cas.getMeno().equals(casopisNazov))return cas;
@@ -1288,8 +1288,8 @@ public class ExcelPrepareImport extends SwingWorker<Integer, String>{
 
     
     // return loadTable data and set progress of loading
-    private List<Entity> loadData(String loadTable, int progress) {
-        List<Entity> data = hq.getAllRecords(loadTable);
+    private List<AssociableEntity> loadData(String loadTable, int progress) {
+        List<AssociableEntity> data = hq.getAllRecords(loadTable);
         this.progress += progress;
         setProgress(Math.min(this.progress, 100));
         return data;
@@ -1795,7 +1795,7 @@ public class ExcelPrepareImport extends SwingWorker<Integer, String>{
         pristup = "";
     }
 
-    Map<String, Entity> getUnsavedEntities() {
+    Map<String, AssociableEntity> getUnsavedEntities() {
         return this.unsavedEntities;
     }
 

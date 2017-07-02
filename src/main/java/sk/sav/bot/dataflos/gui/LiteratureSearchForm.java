@@ -6,7 +6,7 @@ package sk.sav.bot.dataflos.gui;
 
 import sk.sav.bot.dataflos.entity.LitZdroj;
 import sk.sav.bot.dataflos.entity.LzdrojAutoriAsoc;
-import sk.sav.bot.dataflos.entity.interf.Entity;
+import sk.sav.bot.dataflos.entity.interf.AssociableEntity;
 import sk.sav.bot.dataflos.main.MainFrame;
 import sk.sav.bot.dataflos.models.LiteraturesSearchModel;
 import sk.sav.bot.dataflos.util.HibernateQuery;
@@ -25,7 +25,7 @@ public class LiteratureSearchForm extends javax.swing.JFrame {
     
     MainFrame mainFrame;
     
-    List<Entity> container;
+    List<AssociableEntity> container;
     LiteraturesSearchModel searchModel;
     
     public static LiteratureSearchForm searchForm = null;
@@ -306,12 +306,12 @@ public class LiteratureSearchForm extends javax.swing.JFrame {
         String lzPublikacia;
         
         if (ID.isEmpty() && autor.isEmpty() && rok.isEmpty() && casopis.isEmpty() && publikacia.isEmpty()) {
-            for (Entity entity : this.container) {
+            for (AssociableEntity entity : this.container) {
                 searchModel.addRow(entity);
             }
         } else {
 
-            for (Entity entity : this.container) {
+            for (AssociableEntity entity : this.container) {
                 LitZdroj lz = (LitZdroj) entity;
                 
                 lzID = String.valueOf(lz.getId()).toLowerCase();

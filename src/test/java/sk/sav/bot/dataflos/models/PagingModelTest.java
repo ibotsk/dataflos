@@ -17,7 +17,7 @@ import static org.junit.Assert.*;
 import sk.sav.bot.dataflos.entity.Family;
 import sk.sav.bot.dataflos.entity.Genus;
 import sk.sav.bot.dataflos.entity.LitZdroj;
-import sk.sav.bot.dataflos.entity.interf.Entity;
+import sk.sav.bot.dataflos.entity.interf.AssociableEntity;
 
 /**
  *
@@ -40,7 +40,7 @@ public class PagingModelTest {
     
     @Before
     public void setUp() {
-        List<Entity> entity = new ArrayList<>();
+        List<AssociableEntity> entity = new ArrayList<>();
         List<Genus> genuses = new ArrayList<>();
         Genus genus = new Genus();
         genus.setAutor("Autor rodu");
@@ -145,11 +145,11 @@ public class PagingModelTest {
     @Test
     public void testGetSetData() {
         System.out.println("getData");
-        List<Entity> expResult = new ArrayList<>();
+        List<AssociableEntity> expResult = new ArrayList<>();
         expResult.add(new LitZdroj());
         expResult.add(new LitZdroj());
         instance.setData(expResult);
-        List<Entity> result = instance.getData();
+        List<AssociableEntity> result = instance.getData();
         assertEquals(expResult, result);
     }
 
@@ -183,7 +183,7 @@ public class PagingModelTest {
     public void testGoToPage() {
         System.out.println("goToPage");
         int page = 2;
-        List<Entity> entity = new ArrayList<>();
+        List<AssociableEntity> entity = new ArrayList<>();
         List<Genus> genuses = new ArrayList<>();
         for (int i=0; i<320; i++){
             Genus genus = new Genus();
@@ -207,7 +207,7 @@ public class PagingModelTest {
     @Test
     public void testPageDown() {
         System.out.println("pageDown");
-        List<Entity> entity = new ArrayList<>();
+        List<AssociableEntity> entity = new ArrayList<>();
         List<Genus> genuses = new ArrayList<>();
         for (int i=0; i<320; i++){
             Genus genus = new Genus();
@@ -231,7 +231,7 @@ public class PagingModelTest {
     @Test
     public void testPageUp() {
         System.out.println("pageUp");
-        List<Entity> entity = new ArrayList<>();
+        List<AssociableEntity> entity = new ArrayList<>();
         List<Genus> genuses = new ArrayList<>();
         for (int i=0; i<320; i++){
             Genus genus = new Genus();

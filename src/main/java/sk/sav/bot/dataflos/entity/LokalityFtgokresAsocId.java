@@ -1,15 +1,17 @@
 package sk.sav.bot.dataflos.entity;
 
-
+import javax.persistence.Embeddable;
 
 /**
  * LokalityFtgokresAsocId
  */
+@Embeddable
 public class LokalityFtgokresAsocId  implements java.io.Serializable {
 
-
-     private int idLokality;
-     private int idFtgokres;
+	private static final long serialVersionUID = 1L;
+	
+    private int idLokality;
+    private int idFtgokres;
 
     public LokalityFtgokresAsocId() {
     }
@@ -42,7 +44,7 @@ public class LokalityFtgokresAsocId  implements java.io.Serializable {
 		 LokalityFtgokresAsocId castOther = ( LokalityFtgokresAsocId ) other; 
          
 		 return (this.getIdLokality()==castOther.getIdLokality())
- && (this.getIdFtgokres()==castOther.getIdFtgokres());
+				 && (this.getIdFtgokres()==castOther.getIdFtgokres());
    }
    
    @Override

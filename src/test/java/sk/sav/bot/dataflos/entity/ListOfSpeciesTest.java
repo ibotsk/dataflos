@@ -62,8 +62,8 @@ public class ListOfSpeciesTest {
         
         ListOfSpecies instance = new ListOfSpecies();
         ListOfSpecies innerLOS = new ListOfSpecies();
-        instance.setListOfSpecies(innerLOS);
-        ListOfSpecies result = instance.getListOfSpecies();
+        instance.setAcceptedName(innerLOS);
+        ListOfSpecies result = instance.getAcceptedName();
         assertEquals(innerLOS, result);
     }
 
@@ -128,8 +128,8 @@ public class ListOfSpeciesTest {
         loses.add(new ListOfSpecies());
         loses.add(new ListOfSpecies());
         ListOfSpecies instance = new ListOfSpecies();
-        instance.setListOfSpecieses(loses);
-        Set result = instance.getListOfSpecieses();
+        instance.setListOfSynonyms(loses);
+        Set result = instance.getListOfSynonyms();
         assertEquals(2, result.size());
     }
 

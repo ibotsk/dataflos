@@ -19,7 +19,7 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 import sk.sav.bot.dataflos.entity.ListOfSpecies;
 import sk.sav.bot.dataflos.entity.MenaZberRev;
-import sk.sav.bot.dataflos.entity.interf.Entity;
+import sk.sav.bot.dataflos.entity.interf.AssociableEntity;
 import sk.sav.bot.dataflos.gui.FilterJList;
 
 /**
@@ -56,7 +56,7 @@ public class StdMenoFontTypeRendererTest {
         
         StdMenoFontTypeRenderer instance = new StdMenoFontTypeRenderer();
         JList listMoznosti = new JList(new DefaultListModel());
-        DefaultListModel<Entity> model1 = (DefaultListModel<Entity>) listMoznosti.getModel();
+        DefaultListModel<AssociableEntity> model1 = (DefaultListModel<AssociableEntity>) listMoznosti.getModel();
         
         MenaZberRev mzr = new MenaZberRev();
         model1.addElement(mzr);

@@ -4,7 +4,7 @@
  */
 package sk.sav.bot.dataflos.util;
 
-import sk.sav.bot.dataflos.entity.interf.Entity;
+import sk.sav.bot.dataflos.entity.interf.AssociableEntity;
 import org.jdesktop.beansbinding.Converter;
 
 /**
@@ -13,9 +13,9 @@ import org.jdesktop.beansbinding.Converter;
  */
 public class EntityConverter extends Converter {
     
-    private Entity entity;
+    private AssociableEntity entity;
     
-    public EntityConverter(Entity entity) {
+    public EntityConverter(AssociableEntity entity) {
         this.entity = entity;
     }
 

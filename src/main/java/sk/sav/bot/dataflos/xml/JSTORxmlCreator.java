@@ -151,20 +151,20 @@ public class JSTORxmlCreator {
         parent.appendChild(identification);
 
         Element family = doc.createElement("Family");
-        family.setTextContent(skupRev.getMenaTaxonov().getListOfSpecies().getGenus().getFamily().getMeno());
+        family.setTextContent(skupRev.getMenaTaxonov().getSpecies().getGenus().getFamily().getMeno());
         identification.appendChild(family);
 
         Element genus = doc.createElement("Genus");
-        genus.setTextContent(skupRev.getMenaTaxonov().getListOfSpecies().getGenus().getMeno());
+        genus.setTextContent(skupRev.getMenaTaxonov().getSpecies().getGenus().getMeno());
         identification.appendChild(genus);
 
         Element species = doc.createElement("Species");
-        String[] speciesMeno = skupRev.getMenaTaxonov().getListOfSpecies().getMeno().split(" ");
+        String[] speciesMeno = skupRev.getMenaTaxonov().getSpecies().getMeno().split(" ");
         species.setTextContent(speciesMeno[1]);
         identification.appendChild(species);
 
         Element author = doc.createElement("Author");
-        author.setTextContent(skupRev.getMenaTaxonov().getListOfSpecies().getAutori());
+        author.setTextContent(skupRev.getMenaTaxonov().getSpecies().getAutori());
         identification.appendChild(author);
         if (speciesMeno.length > 3 && (speciesMeno[2].equals("var.") || speciesMeno[2].equals("subsp."))) {
             Element infraSpecRank = doc.createElement("Infra-specificRank");
